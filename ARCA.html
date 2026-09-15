@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+<title>blink ai. — 블링크스튜디오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#FFFFFF;
+    --ink-2:#F4F4F2;
+    --ink-3:#EDEDEB;
+    --bone:#141414;
+    --line: rgba(20,20,20,0.12);
+    --font-display: 'Poppins', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--ink); color:var(--bone); font-family:var(--font-display); -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  ::selection{background:var(--bone); color:var(--ink);}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer; background:none; border:none; color:inherit;}
+  img,video{display:block; max-width:100%;}
+  .mono{font-family:var(--font-mono);}
+  .wrap{max-width:1400px; margin:0 auto; padding:0 clamp(1.25rem,4vw,2.5rem);}
+  .eyebrow{font-family:var(--font-mono); font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--bone); opacity:.55; margin-bottom:1rem; display:block; font-weight:500;}
+
+  #progress{position:fixed; top:0; left:0; height:2px; background:var(--bone); width:0%; z-index:100; transform-origin:0 50%;}
+
+  /* nav */
+  nav{position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(255,255,255,0.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);}
+  .navwrap{max-width:1400px; margin:0 auto; padding:1.2rem clamp(1.25rem,4vw,2.5rem); display:flex; align-items:center; justify-content:space-between;}
+  .logo{font-size:1.15rem; font-weight:700; letter-spacing:-0.01em; text-transform:lowercase;}
+  .logo span{color:var(--bone);}
+  .navlinks{display:flex; gap:2.2rem; list-style:none;}
+  .navlinks a{position:relative; font-family:var(--font-mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; opacity:.65; transition:opacity .25s; padding-bottom:.3rem;}
+  .navlinks a .navnum{color:var(--bone); opacity:.55; margin-right:.4em;}
+  .navlinks a::after{content:""; position:absolute; left:0; bottom:0; width:0; height:1px; background:var(--bone); transition:width .3s ease;}
+  .navlinks a:hover{opacity:1;}
+  .navlinks a:hover::after{width:100%;}
+  @media(max-width:820px){.navlinks{display:none;}}
+
+  /* dropcap section title */
+  .dropcap{font-weight:800; letter-spacing:-.02em; font-size:clamp(2.4rem,7vw,3.8rem); margin-bottom:1.4rem; line-height:.95;}
+  .dropcap .drop{font-size:1.55em; line-height:.72; vertical-align:-.13em; display:inline-block;}
+
+  section{padding: clamp(3.5rem,8vw,6.5rem) 0; scroll-margin-top: 76px;}
+  main{scroll-margin-top: 76px;}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; overflow:hidden; background:#0a0a0a;}
+  .hero-media{position:absolute; inset:0;}
+  .hero-media video, .hero-media img{width:100%; height:100%; object-fit:cover; opacity:.72;}
+  .hero-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.35) 55%, rgba(10,10,10,.92) 100%);}
+  .hero-body{position:relative; z-index:2; padding:0 clamp(1.25rem,4vw,2.5rem) 2.2rem;}
+  .hero-body h1{font-weight:700; letter-spacing:-.02em; font-size:clamp(2.1rem,6vw,4rem); line-height:1.18; color:#fff; max-width:32rem;}
+  .hero-body h1 .dim{opacity:.5; font-weight:400;}
+  .amber-dot{color:inherit;}
+  .hero-body .hero-cta{display:inline-flex; align-items:center; gap:.6rem; margin-top:2rem; font-family:var(--font-mono); font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:#fff; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:.4rem;}
+
+  /* ---------- CLIENT MARQUEE (히어로 하단 오버레이) ---------- */
+  .hero-clientbar{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,.18); padding:1.4rem 0; overflow:hidden;}
+  .marquee-row{display:flex; gap:.9rem; width:max-content;}
+  .hero-clientbar .chip-badge{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85); border-radius:999px; padding:.5rem 1.1rem; white-space:nowrap;}
+  @keyframes scroll-left{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+  .marquee-row{animation:scroll-left 34s linear infinite;}
+
+  /* ---------- WORK ---------- */
+  .work-head{display:grid; gap:2rem; grid-template-columns:1fr; margin-bottom:2.6rem;}
+  @media(min-width:900px){.work-head{grid-template-columns:1.1fr 1fr; align-items:end;}}
+  .work-head p.note{color:var(--bone); opacity:.6; font-size:.95rem; line-height:1.7; max-width:32rem;}
+  .tabs{display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2.2rem; border-bottom:1px solid var(--line);}
+  .tab-btn{font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase; padding:.9rem 0; margin-right:2rem; opacity:.45; border-bottom:2px solid transparent; transition:.2s;}
+  .tab-btn.active{opacity:1; border-color:var(--bone);}
+  .tab-btn:hover{opacity:.8;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;}
+  @media(max-width:820px){.work-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:540px){.work-grid{grid-template-columns:1fr;}}
+  .wcard{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/3; background:#101010; cursor:pointer;}
+  .wcard-img, .wcard-vid{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s ease;}
+  .wcard:hover .wcard-img, .wcard:hover .wcard-vid{transform:scale(1.06);}
+  .wcard::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.92), rgba(10,10,10,.1) 55%, transparent);}
+  .wcard-playbtn{position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .3s ease;}
+  .wcard-playbtn span{width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.92); color:var(--bone); display:flex; align-items:center; justify-content:center; font-size:15px; padding-left:3px; transform:scale(.85); transition:transform .3s ease;}
+  .wcard:hover .wcard-playbtn{opacity:1;}
+  .wcard:hover .wcard-playbtn span{transform:scale(1);}
+  .wcard-body{position:absolute; bottom:0; left:0; right:0; padding:.9rem 1rem; z-index:2;}
+  .wcard-client{font-family:var(--font-mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.8); margin-bottom:.3rem;}
+  .wcard-title{color:#fff; font-size:.92rem; font-weight:600; line-height:1.25;}
+
+  /* ---------- CHALLENGE ---------- */
+  .challenge-row{display:grid; grid-template-columns:1fr; gap:2rem; align-items:center; padding:3rem 0;}
+  .challenge-row + .challenge-row{border-top:1px solid var(--line);}
+  @media(min-width:900px){.challenge-row{grid-template-columns:1fr 1fr; gap:3.5rem;}}
+  .challenge-row.rev .c-media{order:2;}
+  .challenge-row.rev .c-text{order:1;}
+  @media(max-width:899px){.challenge-row.rev .c-media, .challenge-row.rev .c-text{order:initial;}}
+  .c-media{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/3; background:#101010;}
+  .c-media img, .c-media video{width:100%; height:100%; object-fit:cover;}
+  .c-media .playbtn{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;}
+  .c-media .playbtn span{width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.9); display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--bone);}
+  .c-text h3{font-family:var(--font-mono); font-size:12px; letter-spacing:.15em; text-transform:uppercase; opacity:.5; margin-bottom:1rem;}
+  .c-text p{font-size:1rem; line-height:1.8; opacity:.75; max-width:34rem;}
+
+  /* ---------- TEAM ---------- */
+  .team-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:1.4rem;}
+  @media(max-width:640px){.team-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:420px){.team-grid{grid-template-columns:1fr;}}
+  .team-card{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/5; background:#101010; border:1px solid var(--line); cursor:pointer;}
+  .team-photo{position:absolute; inset:0; width:100%; height:100%;}
+  .team-photo img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .team-card:hover .team-photo img{transform:scale(1.04);}
+  .team-photo.empty{display:flex; align-items:center; justify-content:center; background:var(--ink-3); color:var(--bone); opacity:.3; font-size:1.6rem;}
+  .team-card::before{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.5), transparent 45%); z-index:1; pointer-events:none;}
+  .team-card::after{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(10,10,10,.55), transparent 60%); opacity:0; transition:opacity .35s ease;}
+  .team-card:hover::after{opacity:1;}
+  .team-info{position:absolute; left:0; right:0; bottom:0; padding:1.2rem 1.2rem 1.3rem; background:linear-gradient(to top, rgba(10,10,10,.94), rgba(10,10,10,.75) 70%, transparent); color:#fff; transform:translateY(100%); transition:transform .38s cubic-bezier(.2,.7,.2,1); z-index:2;}
+  .team-card:hover .team-info{transform:translateY(0);}
+  .team-name{font-weight:700; font-size:1.05rem; margin-bottom:.2rem;}
+  .team-role{font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; opacity:.8; margin-bottom:.6rem; color:rgba(255,255,255,.85);}
+  .team-bio{font-size:.82rem; line-height:1.6; opacity:.85;}
+  .team-name-tag{position:absolute; left:1.2rem; bottom:1.2rem; z-index:2; color:#fff; font-weight:700; font-size:1.05rem; transition:opacity .25s ease; text-shadow:0 2px 10px rgba(0,0,0,.7);}
+  .team-card:hover .team-name-tag{opacity:0;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-inner{display:flex; flex-direction:column; gap:2rem;}
+  .contact-top{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem; margin-bottom:1rem;}
+  .contact-top p{font-size:1.2rem; font-weight:500;}
+  .btn-black{display:inline-flex; align-items:center; gap:.6rem; background:var(--bone); color:#fff; font-weight:600; font-size:.9rem; padding:.95rem 1.7rem; border-radius:999px; transition:opacity .2s;}
+  .btn-black:hover{opacity:.8;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;}
+  @media(max-width:640px){.form-row{grid-template-columns:1fr;}}
+  .field label{font-size:.8rem; opacity:.55; display:block; margin-bottom:.5rem;}
+  .field input, .field textarea{width:100%; font-family:inherit; font-size:.95rem; padding:.85rem 0; background:transparent; border:none; border-bottom:1px solid var(--line); outline:none; color:var(--bone);}
+  .field input:focus, .field textarea:focus{border-color:var(--bone);}
+  .field textarea{resize:none; min-height:70px;}
+
+  footer{border-top:1px solid var(--line); padding:2rem 0; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; opacity:.5;}
+  footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:.8rem;}
+
+  #toTop{position:fixed; bottom:1.5rem; right:1.5rem; z-index:50; width:2.9rem; height:2.9rem; border-radius:50%; background:rgba(255,255,255,.85); backdrop-filter:blur(10px); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:.3s;}
+  #toTop.show{opacity:1; pointer-events:auto;}
+
+  /* ---------- VIDEO MODAL ---------- */
+  .video-modal{position:fixed; inset:0; z-index:200; background:rgba(8,8,8,.92); display:flex; align-items:center; justify-content:center; padding:5vw; opacity:0; pointer-events:none; transition:opacity .3s ease;}
+  .video-modal.open{opacity:1; pointer-events:auto;}
+  .video-modal-inner{position:relative; width:100%; max-width:1000px;}
+  .video-modal video{width:100%; max-height:80vh; border-radius:6px; background:#000; display:block;}
+  .video-modal-caption{margin-top:.9rem; color:#fff; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;}
+  .video-modal-caption .vc-client{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.85);}
+  .video-modal-caption .vc-title{font-weight:600;}
+  .video-modal-close{position:absolute; top:-2.6rem; right:0; width:2.2rem; height:2.2rem; border-radius:50%; border:1px solid rgba(255,255,255,.3); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:.2s;}
+  .video-modal-close:hover{background:#fff; color:#000;}
+  .credit{position:fixed; bottom:.6rem; left:50%; transform:translateX(-50%); z-index:70; font-family:var(--font-mono); font-size:9px; color:rgba(20,20,20,.4); background:rgba(255,255,255,.7); padding:.3rem .7rem; border-radius:999px; pointer-events:none;}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<nav>
+  <div class="navwrap">
+    <a href="#top" class="logo">blink ai<span>.</span></a>
+    <ul class="navlinks">
+      <li><a href="#top"><span class="navnum">01</span>Client</a></li>
+      <li><a href="#work"><span class="navnum">02</span>Work</a></li>
+      <li><a href="#challenge"><span class="navnum">03</span>Challenge</a></li>
+      <li><a href="#team"><span class="navnum">04</span>Team</a></li>
+      <li><a href="#contact"><span class="navnum">05</span>Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <video autoplay muted loop playsinline poster="https://picsum.photos/seed/blinkherobg/1600/1000"
+        src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"></video>
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-body reveal">
+      <h1><span class="dim">기술과 철학을,</span><br>기억에 남는 장면으로<span class="amber-dot">.</span></h1>
+      <a href="#work" class="hero-cta">View Work →</a>
+    </div>
+    <div id="client" class="hero-clientbar">
+      <div class="marquee-row">
+        <span class="chip-badge">삼성전자</span><span class="chip-badge">현대건설</span><span class="chip-badge">신한은행</span><span class="chip-badge">에버랜드</span><span class="chip-badge">HAZZYS</span><span class="chip-badge">신세계인터내셔날</span><span class="chip-badge">롯데백화점</span><span class="chip-badge">삼성자산운용</span><span class="chip-badge">투썸플레이스</span><span class="chip-badge">세종문화회관</span>
+        <span class="chip-badge" aria-hidden="true">삼성전자</span><span class="chip-badge" aria-hidden="true">현대건설</span><span class="chip-badge" aria-hidden="true">신한은행</span><span class="chip-badge" aria-hidden="true">에버랜드</span><span class="chip-badge" aria-hidden="true">HAZZYS</span><span class="chip-badge" aria-hidden="true">신세계인터내셔날</span><span class="chip-badge" aria-hidden="true">롯데백화점</span><span class="chip-badge" aria-hidden="true">삼성자산운용</span><span class="chip-badge" aria-hidden="true">투썸플레이스</span><span class="chip-badge" aria-hidden="true">세종문화회관</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="work-head reveal">
+        <div>
+          <span class="eyebrow">[02] Selected Works</span>
+          <h2 class="dropcap"><span class="drop">W</span>ork<span class="amber-dot">.</span></h2>
+        </div>
+        <p class="note">브랜드의 메시지는 명확하지만, 그것을 다르게 기억되게 만드는 건 다른 문제입니다. blink ai.는 그 요소를 가장 효과적으로 전달하는 방법을 AI로 찾아냅니다.</p>
+      </div>
+
+      <div class="reveal">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="t1">Brand Film</button>
+          <button class="tab-btn" data-tab="t2">Campaign · FOOH</button>
+          <button class="tab-btn" data-tab="t3">Lookbook · VFX</button>
+        </div>
+
+        <div class="tab-panel active" id="t1">
+          <div class="work-grid">
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="에버랜드" data-title="THE BIGGEST SHOW EVER"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork1/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">에버랜드</div><div class="wcard-title">THE BIGGEST SHOW EVER</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="현대건설" data-title="OWN THE ONE"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork2/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">현대건설</div><div class="wcard-title">OWN THE ONE</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="삼성전자" data-title="LITTLE BIG DREAM VOL.2"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork3/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">삼성전자</div><div class="wcard-title">LITTLE BIG DREAM VOL.2</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="마몽드" data-title="리퀴드 마스크"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork4/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">마몽드</div><div class="wcard-title">리퀴드 마스크</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="르노자동차" data-title="필랑트 부산 ATP"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork5/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">르노자동차</div><div class="wcard-title">필랑트 부산 ATP</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-client="세종문화회관" data-title="연극 빅 마더 트레일러"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork6/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">세종문화회관</div><div class="wcard-title">연극 빅 마더 트레일러</div></div></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="t2">
+          <div class="work-grid">
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" data-client="JAJU" data-title="25 어드밴트 캘린더"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork7/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">JAJU</div><div class="wcard-title">25 어드밴트 캘린더</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" data-client="경동나비엔" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork8/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">경동나비엔</div><div class="wcard-title">NAVIEN AI SHORTS</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" data-client="AI-KIVE" data-title="OASIS 가상광고"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork9/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">AI-KIVE</div><div class="wcard-title">OASIS 가상광고</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" data-client="JAJU" data-title="냉감시리즈"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork10/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">JAJU</div><div class="wcard-title">냉감시리즈</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" data-client="SHINHAN BANK" data-title="신한프렌즈 FOOH 카자흐스탄"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork11/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">SHINHAN BANK</div><div class="wcard-title">신한프렌즈 FOOH 카자흐스탄</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" data-client="SHINHAN BANK" data-title="신한프렌즈 FOOH 타지마할"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork12/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">SHINHAN BANK</div><div class="wcard-title">신한프렌즈 FOOH 타지마할</div></div></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="t3">
+          <div class="work-grid">
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4" data-client="HAZZYS" data-title="NEW SEASON, NEW BEAT"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork13/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">HAZZYS</div><div class="wcard-title">NEW SEASON, NEW BEAT</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="HAZZYS" data-title="FAIRY LAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork14/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">HAZZYS</div><div class="wcard-title">FAIRY LAND</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="HAZZYS" data-title="TAHITI ISLAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork15/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">HAZZYS</div><div class="wcard-title">TAHITI ISLAND</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="투썸플레이스" data-title="투썸플레이스 - 피치생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork16/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">투썸플레이스</div><div class="wcard-title">투썸플레이스 - 피치생</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="투썸플레이스" data-title="투썸플레이스 - 금귤생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork17/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">투썸플레이스</div><div class="wcard-title">투썸플레이스 - 금귤생</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="하림" data-title="오드그로서"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork18/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">하림</div><div class="wcard-title">오드그로서</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHALLENGE -->
+  <section id="challenge" style="border-top:1px solid var(--line);">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <span class="eyebrow">[03] What We Solve</span>
+        <h2 class="dropcap"><span class="drop">C</span>hallenge<span class="amber-dot">.</span></h2>
+      </div>
+
+      <div class="challenge-row reveal">
+        <div class="c-media">
+          <img src="https://picsum.photos/seed/challenge1/900/675" alt="">
+          <div class="playbtn"><span>▶</span></div>
+        </div>
+        <div class="c-text">
+          <h3>01 · 속도와 완성도 사이</h3>
+          <p>AI로 빠르게 만들 수는 있어도, 시네마틱한 완성도를 함께 갖추는 건 다른 문제입니다. blink ai.는 AI 생성 속도 위에 실사 합성과 색보정을 더해 결과물의 결을 끝까지 다듬습니다.</p>
+        </div>
+      </div>
+
+      <div class="challenge-row rev reveal">
+        <div class="c-media"><img src="https://picsum.photos/seed/challenge2/900/675" alt=""></div>
+        <div class="c-text">
+          <h3>02 · 브랜드의 언어로 다시 쓰기</h3>
+          <p>같은 AI 도구를 쓰더라도 브랜드마다 톤이 다릅니다. 무드보드와 스타일 프레임 단계에서 브랜드의 언어를 먼저 정의하고, 그 다음에 제작에 들어갑니다.</p>
+        </div>
+      </div>
+
+      <div class="challenge-row reveal">
+        <div class="c-media"><img src="https://picsum.photos/seed/challenge3/900/675" alt=""></div>
+        <div class="c-text">
+          <h3>03 · 판단은 사람이, 실행은 AI가</h3>
+          <p>어떤 장면을 남기고 어떤 장면을 덜어낼지는 여전히 사람의 판단입니다. AI는 그 판단을 더 빠르게 실현하는 도구로 씁니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" style="border-top:1px solid var(--line);">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:2.5rem;">
+        <span class="eyebrow">[04] The People</span>
+        <h2 class="dropcap"><span class="drop">T</span>eam<span class="amber-dot">.</span></h2>
+      </div>
+      <div class="team-grid reveal">
+        <div class="team-card">
+          <div class="team-photo"><img src="https://picsum.photos/seed/founder/480/600" alt=""></div>
+          <div class="team-name-tag">Inho Choi</div>
+          <div class="team-info">
+            <div class="team-name">Inho Choi</div>
+            <div class="team-role">Founder · Creative Director</div>
+            <p class="team-bio">2024년 blink ai. 설립. 삼성전자·삼성물산·현대건설·신한은행 등 국내 주요 대기업의 시즌 캠페인과 브랜드 필름을 AI 기반으로 이끌고 있습니다.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo empty">✕</div>
+          <div class="team-name-tag">AI Artist</div>
+          <div class="team-info">
+            <div class="team-name">AI Artist</div>
+            <div class="team-role">Generative Visuals</div>
+            <p class="team-bio">이미지·영상 생성 모델을 다루며 브랜드 톤에 맞는 비주얼을 만듭니다.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo empty">✕</div>
+          <div class="team-name-tag">AI Engineer</div>
+          <div class="team-info">
+            <div class="team-name">AI Engineer</div>
+            <div class="team-role">Workflow & Pipeline</div>
+            <p class="team-bio">모델별 워크플로우와 파이프라인을 설계하고 최신 모델을 통합합니다.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo empty">✕</div>
+          <div class="team-name-tag">Producer</div>
+          <div class="team-info">
+            <div class="team-name">Producer</div>
+            <div class="team-role">Client & Schedule</div>
+            <p class="team-bio">일정과 예산을 관리하고 클라이언트와의 커뮤니케이션을 담당합니다.</p>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-photo empty">✕</div>
+          <div class="team-name-tag">Editor / Compositor</div>
+          <div class="team-info">
+            <div class="team-name">Editor / Compositor</div>
+            <div class="team-role">Post Production</div>
+            <p class="team-bio">실사 합성과 색보정, 편집으로 최종 완성도를 끌어올립니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="border-top:1px solid var(--line);">
+    <div class="wrap contact-inner">
+      <div class="reveal">
+        <span class="eyebrow">[05] Get In Touch</span>
+        <h2 class="dropcap"><span class="drop">C</span>ontact<span class="amber-dot">.</span></h2>
+        <div class="contact-top">
+          <p>상상을 만듭니다.</p>
+          <a href="#" class="btn-black" id="sendBtn">Send Inquiry →</a>
+        </div>
+      </div>
+      <form class="reveal" onsubmit="return handleSubmit(event)" style="display:flex; flex-direction:column; gap:1.6rem; max-width:44rem;">
+        <div class="form-row">
+          <div class="field"><label>이름</label><input type="text" placeholder="홍길동" required></div>
+          <div class="field"><label>이메일</label><input type="email" placeholder="your@brand.com" required></div>
+        </div>
+        <div class="field"><label>회사 / 브랜드</label><input type="text" placeholder="브랜드명"></div>
+        <div class="field"><label>프로젝트 설명</label><textarea placeholder="목적, 일정, 예산 (10자 이상)" required></textarea></div>
+        <p class="mono" style="font-size:11px; opacity:.4;" id="submitNote">* 데모 페이지입니다. 실제 전송되지 않습니다.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 blink ai.</span>
+    <span>Seoul · KR</span>
+  </div>
+</footer>
+
+<div id="videoModal" class="video-modal">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="videoModalClose" aria-label="닫기">✕</button>
+    <video id="videoModalPlayer" controls playsinline></video>
+    <div class="video-modal-caption">
+      <span class="vc-client" id="videoModalClient"></span>
+      <span class="vc-title" id="videoModalTitle"></span>
+    </div>
+  </div>
+</div>
+
+<button id="toTop" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="credit">이미지: Picsum Photos (무료) · 영상: Blender Foundation 오픈무비 (CC BY) — 데모용 대체 자산</div>
+
+<script>
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    progress.style.transform = `scaleX(${scrolled})`;
+    progress.style.width = '100%';
+    toTop.classList.toggle('show', h.scrollTop > 600);
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // work 카드 클릭 → 영상 팝업
+  const videoModal = document.getElementById('videoModal');
+  const videoPlayer = document.getElementById('videoModalPlayer');
+  const videoClient = document.getElementById('videoModalClient');
+  const videoTitle = document.getElementById('videoModalTitle');
+
+  function openVideoModal(card){
+    videoPlayer.src = card.dataset.video;
+    videoClient.textContent = card.dataset.client || '';
+    videoTitle.textContent = card.dataset.title || '';
+    videoModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    videoPlayer.play().catch(()=>{});
+  }
+  function closeVideoModal(){
+    videoModal.classList.remove('open');
+    document.body.style.overflow = '';
+    videoPlayer.pause();
+    videoPlayer.removeAttribute('src');
+    videoPlayer.load();
+  }
+  document.querySelectorAll('.wcard[data-video]').forEach(card => {
+    card.addEventListener('click', () => openVideoModal(card));
+  });
+  document.getElementById('videoModalClose').addEventListener('click', closeVideoModal);
+  videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideoModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeVideoModal(); });
+
+  // 헤더/앵커 링크: 페이지 이동 없이 같은 페이지 안에서만 부드럽게 스크롤
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    const targetId = link.getAttribute('href').slice(1);
+    if (!targetId) return;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  function handleSubmit(e){
+    e.preventDefault();
+    document.getElementById('submitNote').textContent = '문의가 접수되었습니다 (데모)';
+    return false;
+  }
+  document.getElementById('sendBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('form').requestSubmit();
+    document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  });
+</script>
+
+</body>
+</html>
