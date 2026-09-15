@@ -92,7 +92,9 @@
   /* ---------- CLIENT MARQUEE (히어로 하단 오버레이) ---------- */
   .hero-clientbar{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,.18); padding:2.4rem 0; overflow:hidden; transform:translateY(80px);}
   .marquee-row{display:flex; gap:1.2rem; width:max-content;}
-  .hero-clientbar .chip-badge{font-family:var(--font-mono); font-size:14px; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85); border-radius:999px; padding:.75rem 1.5rem; white-space:nowrap;}
+  .hero-clientbar .chip-badge{font-family:var(--font-mono); font-size:14px; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85); border-radius:999px; padding:.75rem 1.5rem; white-space:nowrap; display:flex; align-items:center;}
+.hero-clientbar .chip-logo{height:32px; width:auto; filter:brightness(0) invert(1); opacity:.85;}
+  .hero-clientbar .chip-logo:hover{opacity:1;}
   @keyframes scroll-left{from{transform:translateX(0);} to{transform:translateX(-50%);}}
   .marquee-row{animation:scroll-left 34s linear infinite;}
 
@@ -255,8 +257,8 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-media">
-      <video autoplay muted loop playsinline poster="https://picsum.photos/seed/blinkherobg/1600/1000"
-        src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"></video>
+      <video autoplay muted loop playsinline poster="images/hero-poster.jpg"
+  src="images/SANTA AHN.mp4"></video>
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-body reveal">
@@ -265,9 +267,52 @@
     </div>
     <div id="client" class="hero-clientbar">
       <div class="marquee-row">
-        <span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span>
-        <span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span>
-      </div>
+  <!-- 세트 1 -->
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/Mask group-1.png" alt="삼성전자"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/Mask group.png" alt="현대건설"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/white 1.png" alt="신한은행"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/Mask group-1.png" alt="HAZZYS"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/white 1.png" alt="롯데백화점"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/Mask group-1.png" alt="삼성전자"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/Mask group.png" alt="현대건설"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/white 1.png" alt="신한은행"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/Mask group-1.png" alt="HAZZYS"></span>
+  <span class="chip-badge"><img class="chip-logo" src="images/logos/white 1.png" alt="롯데백화점"></span>
+  <!-- 세트 2 (동일 순서, 화면 채우기용) -->
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+ 
+  <!-- 세트 3 (애니메이션이 -50% 지점에서 되돌아가므로, 실제로는 세트1+세트2가 "앞쪽 절반", 세트3+세트4가 "뒤쪽 절반"이 되도록 짝수 세트로 맞춰야 함) -->
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span><span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+ 
+  <!-- 세트 4 -->
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span><span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/Mask group-1.png" alt=""></span>
+  <span class="chip-badge" aria-hidden="true"><img class="chip-logo" src="images/logos/white 1.png" alt=""></span>
+ 
+</div>
     </div>
   </section>
 
