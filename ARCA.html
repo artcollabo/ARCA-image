@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-<title>blink ai. — 블링크스튜디오</title>
+<title>ARCA.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --ink:#FFFFFF;
@@ -14,7 +14,7 @@
     --ink-3:#EDEDEB;
     --bone:#141414;
     --line: rgba(20,20,20,0.12);
-    --font-display: 'Poppins', sans-serif;
+    --font-display: 'Pretendard', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -36,6 +36,7 @@
   .navwrap{max-width:1400px; margin:0 auto; padding:1.2rem clamp(1.25rem,4vw,2.5rem); display:flex; align-items:center; justify-content:space-between;}
   .logo{font-size:1.15rem; font-weight:700; letter-spacing:-0.01em; text-transform:lowercase;}
   .logo span{color:var(--bone);}
+  .logo img{height:20px; width:auto; display:block;}
   .navlinks{display:flex; gap:2.2rem; list-style:none;}
   .navlinks a{position:relative; font-family:var(--font-mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; opacity:.65; transition:opacity .25s; padding-bottom:.3rem;}
   .navlinks a .navnum{color:var(--bone); opacity:.55; margin-right:.4em;}
@@ -44,9 +45,30 @@
   .navlinks a:hover::after{width:100%;}
   @media(max-width:820px){.navlinks{display:none;}}
 
+/* hamburger */
+.hamburger{display:none; flex-direction:column; justify-content:center; gap:5px; width:26px; height:22px;}
+.hamburger span{display:block; width:100%; height:2px; background:var(--bone); border-radius:2px; transition:transform .3s ease, opacity .3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+@media(max-width:820px){.hamburger{display:flex;}}
+
+/* 풀스크린 모바일 메뉴 */
+.mobile-menu-full{position:fixed; inset:0; z-index:300; background:#0a0a0a; display:flex; flex-direction:column; transform:translateY(-100%); transition:transform .4s cubic-bezier(.2,.7,.2,1);}
+.mobile-menu-full.open{transform:translateY(0);}
+.mmf-top{display:flex; align-items:center; justify-content:space-between; padding:1.2rem clamp(1.25rem,4vw,2.5rem); border-bottom:1px solid rgba(255,255,255,.15);}
+.mmf-top .logo img{height:20px; filter:brightness(0) invert(1);}
+.mmf-close{width:28px; height:28px; color:#fff; font-size:1.5rem; line-height:1; display:flex; align-items:center; justify-content:center;}
+.mmf-list{list-style:none; flex:1; display:flex; flex-direction:column; justify-content:center; padding:0 clamp(1.25rem,4vw,2.5rem); overflow-y:auto;}
+.mmf-list li{border-bottom:1px solid rgba(255,255,255,.15);}
+.mmf-list li:last-child{border-bottom:none;}
+.mmf-list a{display:flex; align-items:baseline; gap:1.1rem; padding:1.5rem 0; font-family:var(--font-display); font-weight:800; letter-spacing:-0.02em; font-size:clamp(2.1rem,10vw,3rem); color:#fff;}
+.mmf-num{font-family:var(--font-mono); font-size:13px; font-weight:400; color:rgba(255,255,255,.45);}
+  @media(max-width:820px){.navlinks{display:none;}}
+
   /* dropcap section title */
   .dropcap{font-weight:800; letter-spacing:-.02em; font-size:clamp(2.4rem,7vw,3.8rem); margin-bottom:1.4rem; line-height:.95;}
-  .dropcap .drop{font-size:1.55em; line-height:.72; vertical-align:-.13em; display:inline-block;}
+  .dropcap .drop{font-size:1.55em;}
 
   section{padding: clamp(3.5rem,8vw,6.5rem) 0; scroll-margin-top: 76px;}
   main{scroll-margin-top: 76px;}
@@ -59,15 +81,17 @@
   .hero-media video, .hero-media img{width:100%; height:100%; object-fit:cover; opacity:.72;}
   .hero-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.35) 55%, rgba(10,10,10,.92) 100%);}
   .hero-body{position:relative; z-index:2; padding:0 clamp(1.25rem,4vw,2.5rem) 2.2rem;}
-  .hero-body h1{font-weight:700; letter-spacing:-.02em; font-size:clamp(2.1rem,6vw,4rem); line-height:1.18; color:#fff; max-width:32rem;}
+  /* 크기 확대 + 폭 제약 완화 */
+  .hero-body h1{font-weight:700; letter-spacing:-.02em; font-size:clamp(2.7rem,7.5vw,5.2rem); line-height:1.16; color:#fff; max-width:46rem; word-break:keep-all;}
+  .hero-body h1 .nowrap-line{white-space:nowrap;}
   .hero-body h1 .dim{opacity:.5; font-weight:400;}
   .amber-dot{color:inherit;}
   .hero-body .hero-cta{display:inline-flex; align-items:center; gap:.6rem; margin-top:2rem; font-family:var(--font-mono); font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:#fff; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:.4rem;}
 
   /* ---------- CLIENT MARQUEE (히어로 하단 오버레이) ---------- */
-  .hero-clientbar{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,.18); padding:1.4rem 0; overflow:hidden;}
-  .marquee-row{display:flex; gap:.9rem; width:max-content;}
-  .hero-clientbar .chip-badge{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85); border-radius:999px; padding:.5rem 1.1rem; white-space:nowrap;}
+  .hero-clientbar{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,.18); padding:2.4rem 0; overflow:hidden; transform:translateY(80px);}
+  .marquee-row{display:flex; gap:1.2rem; width:max-content;}
+  .hero-clientbar .chip-badge{font-family:var(--font-mono); font-size:14px; letter-spacing:.1em; text-transform:uppercase; border:1px solid rgba(255,255,255,.3); color:rgba(255,255,255,.85); border-radius:999px; padding:.75rem 1.5rem; white-space:nowrap;}
   @keyframes scroll-left{from{transform:translateX(0);} to{transform:translateX(-50%);}}
   .marquee-row{animation:scroll-left 34s linear infinite;}
 
@@ -82,8 +106,20 @@
   .tab-panel{display:none;}
   .tab-panel.active{display:block;}
   .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;}
-  @media(max-width:820px){.work-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:540px){.work-grid{grid-template-columns:1fr;}}
+@media(max-width:820px){
+  .work-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:.9rem;
+    margin:0 -1.25rem;
+    padding:0 1.25rem .5rem;
+    scrollbar-width:none;
+  }
+  .work-grid::-webkit-scrollbar{display:none;}
+  .work-grid .wcard{flex:0 0 78%; scroll-snap-align:start;}
+}
   .wcard{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/3; background:#101010; cursor:pointer;}
   .wcard-img, .wcard-vid{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s ease;}
   .wcard:hover .wcard-img, .wcard:hover .wcard-vid{transform:scale(1.06);}
@@ -112,8 +148,20 @@
 
   /* ---------- TEAM ---------- */
   .team-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:1.4rem;}
-  @media(max-width:640px){.team-grid{grid-template-columns:1fr 1fr;}}
-  @media(max-width:420px){.team-grid{grid-template-columns:1fr;}}
+@media(max-width:820px){
+  .team-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:.9rem;
+    margin:0 -1.25rem;
+    padding:0 1.25rem .5rem;
+    scrollbar-width:none;
+  }
+  .team-grid::-webkit-scrollbar{display:none;}
+  .team-grid .team-card{flex:0 0 62%; scroll-snap-align:start;}
+}
   .team-card{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/5; background:#101010; border:1px solid var(--line); cursor:pointer;}
   .team-photo{position:absolute; inset:0; width:100%; height:100%;}
   .team-photo img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
@@ -168,16 +216,33 @@
 
 <nav>
   <div class="navwrap">
-    <a href="#top" class="logo">blink ai<span>.</span></a>
+    <a href="#top" class="logo"><img src="images/logo.png" alt="blink ai."></a>
     <ul class="navlinks">
-      <li><a href="#top"><span class="navnum">01</span>Client</a></li>
-      <li><a href="#work"><span class="navnum">02</span>Work</a></li>
-      <li><a href="#challenge"><span class="navnum">03</span>Challenge</a></li>
-      <li><a href="#team"><span class="navnum">04</span>Team</a></li>
-      <li><a href="#contact"><span class="navnum">05</span>Contact</a></li>
+      <li><a href="#top"><span class="navnum"></span>Client</a></li>
+      <li><a href="#work"><span class="navnum"></span>Work</a></li>
+      <li><a href="#challenge"><span class="navnum"></span>Challenge</a></li>
+      <li><a href="#team"><span class="navnum"></span>Team</a></li>
+      <li><a href="#contact"><span class="navnum"></span>Contact</a></li>
     </ul>
+    <button id="hamburger" class="hamburger" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<div id="mobileMenuFull" class="mobile-menu-full">
+  <div class="mmf-top">
+    <a href="#top" class="logo"><img src="images/logo.png" alt="blink ai."></a>
+    <button id="mmfClose" class="mmf-close" aria-label="메뉴 닫기">✕</button>
+  </div>
+  <ul class="mmf-list">
+    <li><a href="#top"><span class="mmf-num">01</span>Client</a></li>
+    <li><a href="#work"><span class="mmf-num">02</span>Work</a></li>
+    <li><a href="#challenge"><span class="mmf-num">03</span>Challenge</a></li>
+    <li><a href="#team"><span class="mmf-num">04</span>Team</a></li>
+    <li><a href="#contact"><span class="mmf-num">05</span>Contact</a></li>
+  </ul>
+</div>
 
 <main id="top">
 
@@ -189,13 +254,13 @@
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-body reveal">
-      <h1><span class="dim">기술과 철학을,</span><br>기억에 남는 장면으로<span class="amber-dot">.</span></h1>
+      <h1><span class="dim">기술과 철학을,</span><br><span class="nowrap-line">기억에 남는 장면으로<span class="amber-dot">.</span></span></h1>
       <a href="#work" class="hero-cta">View Work →</a>
     </div>
     <div id="client" class="hero-clientbar">
       <div class="marquee-row">
-        <span class="chip-badge">삼성전자</span><span class="chip-badge">현대건설</span><span class="chip-badge">신한은행</span><span class="chip-badge">에버랜드</span><span class="chip-badge">HAZZYS</span><span class="chip-badge">신세계인터내셔날</span><span class="chip-badge">롯데백화점</span><span class="chip-badge">삼성자산운용</span><span class="chip-badge">투썸플레이스</span><span class="chip-badge">세종문화회관</span>
-        <span class="chip-badge" aria-hidden="true">삼성전자</span><span class="chip-badge" aria-hidden="true">현대건설</span><span class="chip-badge" aria-hidden="true">신한은행</span><span class="chip-badge" aria-hidden="true">에버랜드</span><span class="chip-badge" aria-hidden="true">HAZZYS</span><span class="chip-badge" aria-hidden="true">신세계인터내셔날</span><span class="chip-badge" aria-hidden="true">롯데백화점</span><span class="chip-badge" aria-hidden="true">삼성자산운용</span><span class="chip-badge" aria-hidden="true">투썸플레이스</span><span class="chip-badge" aria-hidden="true">세종문화회관</span>
+        <span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span><span class="chip-badge">CLIENT</span>
+        <span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span><span class="chip-badge" aria-hidden="true">CLIENT</span>
       </div>
     </div>
   </section>
@@ -205,49 +270,49 @@
     <div class="wrap">
       <div class="work-head reveal">
         <div>
-          <span class="eyebrow">[02] Selected Works</span>
-          <h2 class="dropcap"><span class="drop">W</span>ork<span class="amber-dot">.</span></h2>
+          <span class="eyebrow"></span>
+          <h2 class="dropcap"><span class="drop">W</span>ork<span class="amber-dot"></span></h2>
         </div>
-        <p class="note">브랜드의 메시지는 명확하지만, 그것을 다르게 기억되게 만드는 건 다른 문제입니다. blink ai.는 그 요소를 가장 효과적으로 전달하는 방법을 AI로 찾아냅니다.</p>
+        <p class="note">브랜드의 메시지는 명확하지만, 그것을 다르게 기억되게 만드는 건 다른 문제입니다. ARCA는 그 요소를 가장 효과적으로 전달하는 방법을 AI로 찾아냅니다.</p>
       </div>
 
       <div class="reveal">
         <div class="tabs">
-          <button class="tab-btn active" data-tab="t1">Brand Film</button>
-          <button class="tab-btn" data-tab="t2">Campaign · FOOH</button>
-          <button class="tab-btn" data-tab="t3">Lookbook · VFX</button>
+          <button class="tab-btn active" data-tab="t1">Tech</button>
+          <button class="tab-btn" data-tab="t2">Institutions</button>
+          <button class="tab-btn" data-tab="t3">Commercials</button>
         </div>
 
         <div class="tab-panel active" id="t1">
           <div class="work-grid">
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="에버랜드" data-title="THE BIGGEST SHOW EVER"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork1/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">에버랜드</div><div class="wcard-title">THE BIGGEST SHOW EVER</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="현대건설" data-title="OWN THE ONE"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork2/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">현대건설</div><div class="wcard-title">OWN THE ONE</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="삼성전자" data-title="LITTLE BIG DREAM VOL.2"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork3/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">삼성전자</div><div class="wcard-title">LITTLE BIG DREAM VOL.2</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="마몽드" data-title="리퀴드 마스크"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork4/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">마몽드</div><div class="wcard-title">리퀴드 마스크</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="르노자동차" data-title="필랑트 부산 ATP"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork5/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">르노자동차</div><div class="wcard-title">필랑트 부산 ATP</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-client="세종문화회관" data-title="연극 빅 마더 트레일러"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork6/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">세종문화회관</div><div class="wcard-title">연극 빅 마더 트레일러</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="CLIENT" data-title="제목"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork1/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">1</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="CLIENT" data-title="제목"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork2/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">2</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="CLIENT" data-title="제목"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork3/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">3</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="CLIENT" data-title="제목"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork4/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">4</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="CLIENT" data-title="제목"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork5/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">5</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" data-client="CLIENT" data-title="제목"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork6/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">6</div></div></div>
           </div>
         </div>
 
         <div class="tab-panel" id="t2">
           <div class="work-grid">
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" data-client="JAJU" data-title="25 어드밴트 캘린더"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork7/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">JAJU</div><div class="wcard-title">25 어드밴트 캘린더</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" data-client="경동나비엔" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork8/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">경동나비엔</div><div class="wcard-title">NAVIEN AI SHORTS</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" data-client="AI-KIVE" data-title="OASIS 가상광고"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork9/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">AI-KIVE</div><div class="wcard-title">OASIS 가상광고</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" data-client="JAJU" data-title="냉감시리즈"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork10/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">JAJU</div><div class="wcard-title">냉감시리즈</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" data-client="SHINHAN BANK" data-title="신한프렌즈 FOOH 카자흐스탄"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork11/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">SHINHAN BANK</div><div class="wcard-title">신한프렌즈 FOOH 카자흐스탄</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" data-client="SHINHAN BANK" data-title="신한프렌즈 FOOH 타지마할"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork12/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">SHINHAN BANK</div><div class="wcard-title">신한프렌즈 FOOH 타지마할</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" data-client="CLIENT" data-title="25 어드밴트 캘린더"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork7/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">1</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" data-client="CLIENT" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork8/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">2</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" data-client="CLIENT" data-title="OASIS 가상광고"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork9/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">3</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" data-client="CLIENT" data-title="냉감시리즈"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork10/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">4</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" data-client="CLIENT" data-title="신한프렌즈 FOOH 카자흐스탄"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork11/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">5</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" data-client="CLIENT" data-title="신한프렌즈 FOOH 타지마할"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork12/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">6</div></div></div>
           </div>
         </div>
 
         <div class="tab-panel" id="t3">
           <div class="work-grid">
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4" data-client="HAZZYS" data-title="NEW SEASON, NEW BEAT"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork13/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">HAZZYS</div><div class="wcard-title">NEW SEASON, NEW BEAT</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="HAZZYS" data-title="FAIRY LAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork14/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">HAZZYS</div><div class="wcard-title">FAIRY LAND</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="HAZZYS" data-title="TAHITI ISLAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork15/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">HAZZYS</div><div class="wcard-title">TAHITI ISLAND</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="투썸플레이스" data-title="투썸플레이스 - 피치생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork16/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">투썸플레이스</div><div class="wcard-title">투썸플레이스 - 피치생</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="투썸플레이스" data-title="투썸플레이스 - 금귤생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork17/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">투썸플레이스</div><div class="wcard-title">투썸플레이스 - 금귤생</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="하림" data-title="오드그로서"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork18/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">하림</div><div class="wcard-title">오드그로서</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4" data-client="CLIENT" data-title="NEW SEASON, NEW BEAT"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork13/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">1</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="CLIENT" data-title="FAIRY LAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork14/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">2</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="CLIENT" data-title="TAHITI ISLAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork15/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">3</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="CLIENT" data-title="투썸플레이스 - 피치생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork16/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">4</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="CLIENT" data-title="투썸플레이스 - 금귤생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork17/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">5</div></div></div>
+            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="CLIENT" data-title="오드그로서"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork18/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">6</div></div></div>
           </div>
         </div>
       </div>
@@ -258,8 +323,8 @@
   <section id="challenge" style="border-top:1px solid var(--line);">
     <div class="wrap">
       <div class="reveal" style="margin-bottom:2.5rem;">
-        <span class="eyebrow">[03] What We Solve</span>
-        <h2 class="dropcap"><span class="drop">C</span>hallenge<span class="amber-dot">.</span></h2>
+        <span class="eyebrow"></span>
+        <h2 class="dropcap"><span class="drop">C</span>hallenge<span class="amber-dot"></span></h2>
       </div>
 
       <div class="challenge-row reveal">
@@ -269,7 +334,7 @@
         </div>
         <div class="c-text">
           <h3>01 · 속도와 완성도 사이</h3>
-          <p>AI로 빠르게 만들 수는 있어도, 시네마틱한 완성도를 함께 갖추는 건 다른 문제입니다. blink ai.는 AI 생성 속도 위에 실사 합성과 색보정을 더해 결과물의 결을 끝까지 다듬습니다.</p>
+          <p>AI로 빠르게 만들 수는 있어도, 시네마틱한 완성도를 함께 갖추는 건 다른 문제입니다.  ARCA는 AI 생성 속도 위에 실사 합성과 색보정을 더해 결과물의 결을 끝까지 다듬습니다.</p>
         </div>
       </div>
 
@@ -295,17 +360,17 @@
   <section id="team" style="border-top:1px solid var(--line);">
     <div class="wrap">
       <div class="reveal" style="margin-bottom:2.5rem;">
-        <span class="eyebrow">[04] The People</span>
-        <h2 class="dropcap"><span class="drop">T</span>eam<span class="amber-dot">.</span></h2>
+        <span class="eyebrow"></span>
+        <h2 class="dropcap"><span class="drop">T</span>eam<span class="amber-dot"></span></h2>
       </div>
       <div class="team-grid reveal">
         <div class="team-card">
           <div class="team-photo"><img src="https://picsum.photos/seed/founder/480/600" alt=""></div>
-          <div class="team-name-tag">Inho Choi</div>
+          <div class="team-name-tag">Director</div>
           <div class="team-info">
-            <div class="team-name">Inho Choi</div>
+            <div class="team-name">Director</div>
             <div class="team-role">Founder · Creative Director</div>
-            <p class="team-bio">2024년 blink ai. 설립. 삼성전자·삼성물산·현대건설·신한은행 등 국내 주요 대기업의 시즌 캠페인과 브랜드 필름을 AI 기반으로 이끌고 있습니다.</p>
+            <p class="team-bio">ARCA 설립. </p>
           </div>
         </div>
         <div class="team-card">
@@ -352,8 +417,8 @@
   <section id="contact" style="border-top:1px solid var(--line);">
     <div class="wrap contact-inner">
       <div class="reveal">
-        <span class="eyebrow">[05] Get In Touch</span>
-        <h2 class="dropcap"><span class="drop">C</span>ontact<span class="amber-dot">.</span></h2>
+        <span class="eyebrow"></span>
+        <h2 class="dropcap"><span class="drop">C</span>ontact<span class="amber-dot"></span></h2>
         <div class="contact-top">
           <p>상상을 만듭니다.</p>
           <a href="#" class="btn-black" id="sendBtn">Send Inquiry →</a>
@@ -375,7 +440,7 @@
 
 <footer>
   <div class="wrap">
-    <span>© 2026 blink ai.</span>
+    <span>©art collabo</span>
     <span>Seoul · KR</span>
   </div>
 </footer>
@@ -447,6 +512,32 @@
   videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideoModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeVideoModal(); });
 
+// 모바일 풀스크린 메뉴
+const hamburger = document.getElementById('hamburger');
+const mobileMenuFull = document.getElementById('mobileMenuFull');
+const mmfClose = document.getElementById('mmfClose');
+
+function openMobileMenu(){
+  mobileMenuFull.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  hamburger.setAttribute('aria-label', '메뉴 닫기');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu(){
+  mobileMenuFull.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  hamburger.setAttribute('aria-label', '메뉴 열기');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', () => {
+  mobileMenuFull.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+});
+mmfClose.addEventListener('click', closeMobileMenu);
+mobileMenuFull.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', closeMobileMenu);
+});
   // 헤더/앵커 링크: 페이지 이동 없이 같은 페이지 안에서만 부드럽게 스크롤
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     const targetId = link.getAttribute('href').slice(1);
