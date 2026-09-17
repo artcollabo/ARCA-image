@@ -95,9 +95,9 @@
   .hero-body .hero-cta{display:inline-flex; align-items:center; gap:.6rem; margin-top:2rem; font-family:var(--font-mono); font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:#fff; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:.4rem;}
 
   /* ---------- CLIENT MARQUEE (히어로 하단 오버레이) ---------- */
-  .hero-clientbar{position:relative; z-index:2; border-top:1px solid rgba(255,255,255,.18); padding:2.4rem 0; overflow:hidden; transform:translateY(80px);}
+  .hero-clientbar{position:relative; z-index:2; padding:2.4rem 0; overflow:hidden; transform:translateY(80px);}
   .marquee-row{display:flex; gap:20px; width:max-content; will-change:transform; backface-visibility:hidden;}
-  .hero-clientbar .chip-badge{width:140px; height:64px; border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:0 1.2rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .hero-clientbar .chip-badge{width:140px; height:64px; border-radius:999px; padding:0 1.2rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
 .hero-clientbar .chip-logo{max-width:100%; max-height:60%; width:auto; height:auto; object-fit:contain; filter:brightness(0) invert(1); opacity:.85;}
   .hero-clientbar .chip-logo:hover{opacity:1;}
   @keyframes scroll-left{from{transform:translate3d(0,0,0);} to{transform:translate3d(-50%,0,0);}}
@@ -258,7 +258,7 @@
   .video-modal-caption .vc-title{font-weight:600;}
   .video-modal-close{position:absolute; top:-2.6rem; right:0; width:2.2rem; height:2.2rem; border-radius:50%; border:1px solid rgba(255,255,255,.3); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:.2s;}
   .video-modal-close:hover{background:#fff; color:#000;}
-  .credit{position:fixed; bottom:.6rem; left:50%; transform:translateX(-50%); z-index:70; font-family:var(--font-mono); font-size:9px; color:rgba(20,20,20,.4); background:rgba(255,255,255,.7); padding:.3rem .7rem; border-radius:999px; pointer-events:none;}
+  
 
 /* ---------- TEXT MODAL (약관/개인정보처리방침) ---------- */
 .text-modal{position:fixed; inset:0; z-index:400; background:rgba(10,10,10,.7); display:flex; align-items:center; justify-content:center; padding:4vw; opacity:0; pointer-events:none; transition:opacity .25s ease;}
@@ -330,7 +330,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-body reveal">
-     <h1><span class="dim">기술과 철학을,</span><br><span class="line2">기억에 남는<br class="mobile-break"> 장면으로<span class="amber-dot">.</span></span></h1>
+     <h1><span class="dim">기술과 철학을</span><br><span class="line2">기억에 남는<br class="mobile-break"> 장면으로</span></h1>
       <a href="#work" class="hero-cta">View Work →</a>
     </div>
     <div id="client" class="hero-clientbar">
@@ -442,41 +442,42 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
       <div class="reveal">
         <div class="tabs">
-          <button class="tab-btn active" data-tab="t1">Tech</button>
+          <button class="tab-btn active" data-tab="t1">Commercials</button>
           <button class="tab-btn" data-tab="t2">Institutions</button>
-          <button class="tab-btn" data-tab="t3">Commercials</button>
+          <button class="tab-btn" data-tab="t3">Tech</button>
         </div>
 
         <div class="tab-panel active" id="t1">
           <div class="work-grid">
-            <div class="wcard" data-video="videos/t1/Hunt.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/quad minor.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t1/prismcups.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/cups.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t1/DEAVOCEAN.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/skt.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t1/CHAC.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/samsung.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t1/quadminers.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/quad minor.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t1/HIMS.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/hims.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/2.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-50.png" alt=""><img class="wcard-logo" src="images/logos/Gucci.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/3.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="images/sn/3-40.png" alt=""><img class="wcard-logo" src="images/logos/asics.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/1.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-30.png" alt=""><img class="wcard-logo" src="images/logos/dangguen.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/Alloso.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-10.png" alt=""><img class="wcard-logo" src="images/logos/alloso.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/Diame.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-20.png" alt=""><img class="wcard-logo" src="images/logos/diame.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+           <div class="wcard" data-video="videos/t3/EXPEDIA.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-60.png" alt=""><img class="wcard-logo" src="images/logos/expedia.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
           </div>
         </div>
 
         <div class="tab-panel" id="t2">
           <div class="work-grid">
-            <div class="wcard" data-video="videos/t2/jeju.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/tour.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t2/addd.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/seoul.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t2/ckl.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/ckl.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t2/kcu.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/ktu.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t2/sejong.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/sejong.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-           <div class="wcard" data-video="videos/t2/sh.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/sh.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/jeju.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-10.png" alt=""><img class="wcard-logo" src="images/logos/tour.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/addd.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="images/sn/2-60.png" alt=""><img class="wcard-logo" src="images/logos/seoul.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/ckl.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-50.png" alt=""><img class="wcard-logo" src="images/logos/ckl.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/kcu.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-20.png" alt=""><img class="wcard-logo" src="images/logos/ktu.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/sejong.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-40.png" alt=""><img class="wcard-logo" src="images/logos/sejong.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+           <div class="wcard" data-video="videos/t2/sh.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-30.png" alt=""><img class="wcard-logo" src="images/logos/sh.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
           </div>
         </div>
 
         <div class="tab-panel" id="t3">
           <div class="work-grid">
-            <div class="wcard" data-video="videos/t3/2.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/Gucci.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t3/3.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/asics.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t3/1.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/dangguen.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t3/Alloso.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/alloso.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t3/Diame.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/diame.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-           <div class="wcard" data-video="videos/t3/EXPEDIA.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/expedia.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/Hunt.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/20.png" alt=""><img class="wcard-logo" src="images/logos/quad minor.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/prismcups.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/10.png" alt=""><img class="wcard-logo" src="images/logos/cups.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/DEAVOCEAN.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/30.png" alt=""><img class="wcard-logo" src="images/logos/skt.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/CHAC.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/40.png" alt=""><img class="wcard-logo" src="images/logos/samsung.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/quadminers.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/60.png" alt=""><img class="wcard-logo" src="images/logos/quad minor.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/HIMS.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/70.png" alt=""><img class="wcard-logo" src="images/logos/hims.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+          
           </div>
         </div>
       </div>
@@ -532,7 +533,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
       </div>
       <div class="team-grid reveal">
         <div class="team-card">
-          <div class="team-photo"><img src="https://picsum.photos/seed/founder/480/600" alt=""></div>
+          <div class="team-photo"><img src="" alt=""></div>
           <div class="team-name-tag">Director</div>
           <div class="team-info">
             <div class="team-name">Director</div>
@@ -541,7 +542,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
           </div>
         </div>
         <div class="team-card">
-          <div class="team-photo empty">✕</div>
+          <div class="team-photo empty"></div>
           <div class="team-name-tag">AI Artist</div>
           <div class="team-info">
             <div class="team-name">AI Artist</div>
@@ -550,7 +551,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
           </div>
         </div>
         <div class="team-card">
-          <div class="team-photo empty">✕</div>
+          <div class="team-photo empty"></div>
           <div class="team-name-tag">AI Engineer</div>
           <div class="team-info">
             <div class="team-name">AI Engineer</div>
@@ -559,7 +560,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
           </div>
         </div>
         <div class="team-card">
-          <div class="team-photo empty">✕</div>
+          <div class="team-photo empty"></div>
           <div class="team-name-tag">Producer</div>
           <div class="team-info">
             <div class="team-name">Producer</div>
@@ -568,7 +569,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
           </div>
         </div>
         <div class="team-card">
-          <div class="team-photo empty">✕</div>
+          <div class="team-photo empty"></div>
           <div class="team-name-tag">Editor / Compositor</div>
           <div class="team-info">
             <div class="team-name">Editor / Compositor</div>
@@ -611,6 +612,8 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
       <div class="footer-brand">
         <div class="footer-logo">ARCA</div>
         <p class="footer-desc">브랜드의 상상을 AI 영상 제작으로 현실에.</p>
+
+        <!--
         <a href="https://instagram.com/[인스타그램아이디]" target="_blank" rel="noopener noreferrer" class="footer-sns" aria-label="Instagram">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.6"/>
@@ -618,6 +621,8 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
             <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/>
           </svg>
         </a>
+        -->
+
       </div>
       <div class="footer-legal">
         <div class="footer-row"><span class="footer-label">ARTCOLLABO</span><span>[ARTCOLLABO]</span></div>
@@ -650,7 +655,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 </div>
 
 <button id="toTop" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-<div class="credit">이미지: Picsum Photos (무료) · 영상: Blender Foundation 오픈무비 (CC BY) — 데모용 대체 자산</div>
+
 
 <div id="privacyModal" class="text-modal">
   <div class="text-modal-inner">
