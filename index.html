@@ -40,6 +40,7 @@
 
   .logo span{color:var(--bone);}
   .logo img{height:45px; width:auto; display:block; filter:brightness(0) invert(1);}
+  @media(max-width:820px){.logo img{height:28px;}}
   .navlinks{display:flex; gap:2.2rem; list-style:none;}
   .navlinks a{position:relative; font-family:var(--font-mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; opacity:.65; transition:opacity .25s; padding-bottom:.3rem;}
   .navlinks a .navnum{color:var(--bone); opacity:.55; margin-right:.4em;}
@@ -102,9 +103,46 @@
   @keyframes scroll-left{from{transform:translate3d(0,0,0);} to{transform:translate3d(-50%,0,0);}}
   .marquee-row{animation:scroll-left 34s linear infinite;}
 
+/* ---------- SHOWCASE (배경 이미지 + 코딩된 텍스트, 2개 슬라이드) ---------- */
 .showcase{padding:0 0 clamp(2rem,5vw,3.5rem);}
-.showcase-stack{display:flex; flex-direction:column; gap:1rem;}
-.showcase-stack img{width:100%; aspect-ratio:1920/1080; object-fit:cover; border-radius:8px; display:block;}
+.showcase-slide{position:relative; overflow:hidden;}
+.showcase-slide + .showcase-slide{margin-top:1rem;}
+
+/* 슬라이드 1: 다크, 풀블리드 배경 + 브랜드/카피 오버레이 */
+.showcase-dark{aspect-ratio:16/9;}
+@media(max-width:640px){.showcase-dark{aspect-ratio:3/4;}}
+.showcase-bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.showcase-scrim{position:absolute; inset:0; background:rgba(0,0,0,.4);}
+.showcase-content{position:relative; z-index:2; height:100%; display:grid; grid-template-columns:1fr 1fr;}
+.showcase-brand{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: clamp(1.5rem,4vw,3rem);}
+.showcase-logo img{height:clamp(3rem,9vw,7rem); width:auto; display:block; margin:0 auto; filter:drop-shadow(0 4px 20px rgba(0,0,0,.5));}
+.showcase-sub{margin-top:.5em;}
+.showcase-sub img{height:20vw; width:auto; display:block; margin:0 auto; filter:drop-shadow(0 2px 10px rgba(0,0,0,.5));}
+.showcase-right{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:clamp(1.5rem,4vw,3rem); padding: clamp(1.5rem,4vw,3rem);}
+
+@media(max-width:640px){
+  .showcase-content{grid-template-columns:1fr;}
+}
+
+.showcase-copy{display:flex; flex-direction:column; gap:clamp(1rem,2.5vw,1.6rem); text-align:left;}
+@media(max-width:640px){
+  .showcase-copy{text-align:center; margin-top:-10rem}
+}
+.showcase-copy p{color:rgba(255,255,255,.9); font-size:clamp(.8rem,1.5vw,1rem); line-height:1.6; text-shadow:0 2px 8px rgba(0,0,0,.5);}
+.showcase-tag{color:#fff; font-weight:900; font-size:clamp(1.1rem,2.2vw,1.5rem); text-align:center; letter-spacing:.03em; text-shadow:0 2px 8px rgba(0,0,0,.5); margin-left:-5rem}
+@media(max-width:640px){
+  .showcase-tag{margin-right:-5rem}
+}
+/* 슬라이드 2: 라이트, 프레임 이미지 + 하단 텍스트 리스트 */
+.showcase-light{background:#EFEEEA; padding:clamp(2rem,5vw,3.5rem) 0;}
+.showcase-framed{width:100%; aspect-ratio:21/9; object-fit:cover; display:block; margin-bottom:clamp(1.5rem,3.5vw,2.5rem);}
+@media(max-width:640px){.showcase-framed{aspect-ratio:4/3;}}
+.showcase-list p{color:#5b5b58; text-transform:uppercase; font-size:clamp(1.1rem,2.6vw,1.4rem); letter-spacing:.02em; line-height:1.9; font-weight:500;}
+@media(min-width:641px){.showcase-list{transform:translate(9.5rem, 0); margin-top:-11.5rem;}}
+@media(max-width:640px){
+  .showcase-list p{font-size:.75rem;}
+  .showcase-list{margin-top:-7rem;}
+}
 
   /* ---------- WORK ---------- */
   .work-head{display:grid; gap:2rem; grid-template-columns:1fr; margin-bottom:2.6rem;}
@@ -147,7 +185,7 @@
   .wcard-body{position:absolute; bottom:0; left:0; right:0; padding:.9rem 1rem; z-index:2;}
   .wcard-client{font-family:var(--font-mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.8); margin-bottom:.3rem;}
   .wcard-title{color:#fff; font-size:.92rem; font-weight:600; line-height:1.25;}
-
+  .wcard-logo{position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); z-index:2; width:100px; height:70px; object-fit:contain; filter:brightness(0) invert(1); opacity:.95;}
   /* ---------- CHALLENGE ---------- */
   .challenge-row{display:grid; grid-template-columns:1fr; gap:2rem; align-items:center; padding:3rem 0;}
   .challenge-row + .challenge-row{border-top:1px solid var(--line);}
@@ -358,11 +396,39 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   </section>
 <!-- SHOWCASE (히어로 다음, Work 전) -->
 <section class="showcase">
-  <div class="wrap showcase-stack">
-    <img class="reveal" src="/images/2.png" alt="">
-    <img class="reveal" src="/images/3.png" alt="">
+  <div class="showcase-slide showcase-dark reveal">
+  <img class="showcase-bg" src="images/2.png" alt="">
+  <div class="showcase-scrim"></div>
+  <div class="showcase-content">
+    <div class="showcase-brand">
+     
+      <div class="showcase-sub"><img src="images/logo1.png" alt="IMAGE"></div>
+    </div>
+    <div class="showcase-right">
+      <div class="showcase-copy">
+        <p>카메라와 필름, 종이와 인쇄,<br>디지털 이미지와 AI 까지</p>
+        <p>우리가 지향하는 이미지는<br>차갑고 낯선 미래가 아닙니다</p>
+        <p>인류가 오래 전부터 상상해왔던 미래</p>
+        <p>기술과 철학을<br>기억에 남는 장면으로<br>남기겠습니다</p>
+      </div>
+      <div class="showcase-tag">ARCA IMAGE</div>
+    </div>
+  </div>
+</div>
+
+  <div class="showcase-slide showcase-light reveal">
+    <div class="wrap">
+      <img class="showcase-framed" src="images/3.png" alt="">
+      <div class="showcase-list">
+        <p>WE MAKE IMAGES.</p>
+        <p>IMAGES FOR WHAT COMES NEXT.</p>
+        <p>MOVING AND STILL IMAGE.</p>
+        <p>ARCHIVE, PRINT, AND BEYOND.</p>
+      </div>
+    </div>
   </div>
 </section>
+
   <!-- WORK -->
   <section id="work" style="border-top:1px solid var(--line);">
     <div class="wrap">
@@ -383,34 +449,34 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
         <div class="tab-panel active" id="t1">
           <div class="work-grid">
-            <div class="wcard" data-video="videos/Hunt or Get hunted_15s.mp4" data-client="CLIENT" data-title="제목"><video class="wcard-img" muted playsinline preload="metadata" src="videos/Hunt or Get hunted_15s.mp4"></video><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">1</div></div></div>
-            <div class="wcard" data-video="videos/HIMS.mp4" data-client="CLIENT" data-title="제목"><video class="wcard-img" muted playsinline preload="metadata" src="videos/HIMS.mp4"></video><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">2</div></div></div>
-            <div class="wcard" data-video="videos/prismcups 20s.mp4" data-client="CLIENT" data-title="제목"><video class="wcard-img" muted playsinline preload="metadata" src="videos/prismcups 20s.mp4"></video><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">3</div></div></div>
-            <div class="wcard" data-video="videos/quadminers_final_no text.mp4" data-client="CLIENT" data-title="제목"><video class="wcard-img" muted playsinline preload="metadata" src="videos/quadminers_final_no text.mp4"></video><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">4</div></div></div>
-            <div class="wcard" data-video="videos/seculetter.mp4" data-client="CLIENT" data-title="제목"><video class="wcard-img" muted playsinline preload="metadata" src="videos/seculetter.mp4"></video><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">5</div></div></div>
-            <div class="wcard" data-video="videos/CHAC.mp4" data-client="삼성화재" data-title="삼성화재 착"><video class="wcard-img" muted playsinline preload="metadata" src="videos/CHAC.mp4"></video><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">CHAC</div><div class="wcard-title">삼성화재</div></div></div>
+            <div class="wcard" data-video="videos/t1/Hunt.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/quad minor.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/prismcups.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/cups.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/DEAVOCEAN.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/skt.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/CHAC.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/samsung.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/quadminers.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/quad minor.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t1/HIMS.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/hims.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
           </div>
         </div>
 
         <div class="tab-panel" id="t2">
           <div class="work-grid">
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" data-client="CLIENT" data-title="25 어드밴트 캘린더"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork7/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">1</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" data-client="CLIENT" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork8/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">2</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" data-client="CLIENT" data-title="OASIS 가상광고"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork9/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">3</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" data-client="CLIENT" data-title="냉감시리즈"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork10/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">4</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4" data-client="CLIENT" data-title="신한프렌즈 FOOH 카자흐스탄"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork11/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">5</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4" data-client="CLIENT" data-title="신한프렌즈 FOOH 타지마할"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork12/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">6</div></div></div>
+            <div class="wcard" data-video="videos/t2/jeju.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/tour.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/addd.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/seoul.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/ckl.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/ckl.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/kcu.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/ktu.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/sejong.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/sejong.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+           <div class="wcard" data-video="videos/t2/sh.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/sh.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
           </div>
         </div>
 
         <div class="tab-panel" id="t3">
           <div class="work-grid">
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4" data-client="CLIENT" data-title="NEW SEASON, NEW BEAT"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork13/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">1</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" data-client="CLIENT" data-title="FAIRY LAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork14/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">2</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" data-client="CLIENT" data-title="TAHITI ISLAND"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork15/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">3</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" data-client="CLIENT" data-title="투썸플레이스 - 피치생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork16/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">4</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" data-client="CLIENT" data-title="투썸플레이스 - 금귤생"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork17/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">5</div></div></div>
-            <div class="wcard" data-video="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" data-client="CLIENT" data-title="오드그로서"><img class="wcard-img" src="https://picsum.photos/seed/blinkwork18/640/480" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client">client</div><div class="wcard-title">6</div></div></div>
+            <div class="wcard" data-video="videos/t3/2.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/Gucci.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/3.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/asics.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/1.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/dangguen.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/Alloso.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/alloso.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/Diame.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/diame.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+           <div class="wcard" data-video="videos/t3/EXPEDIA.mp4" data-client="" data-title=""><img class="wcard-img" src="" alt=""><img class="wcard-logo" src="images/logos/expedia.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
           </div>
         </div>
       </div>
@@ -427,7 +493,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
       <div class="challenge-row reveal">
         <div class="c-media">
-          <video class="c-media-vid"  playsinline preload="auto" src="videos/ch/3.mp4"></video>
+          <video class="c-media-vid"  playsinline preload="auto" src="videos/t3/3.mp4"></video>
         </div>
         <div class="c-text">
           <h3>속도와 완성도 사이</h3>
@@ -437,7 +503,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
       <div class="challenge-row rev reveal">
         <div class="c-media">
-          <video class="c-media-vid"  playsinline preload="auto" src="videos/ch/2.mp4"></video>
+          <video class="c-media-vid"  playsinline preload="auto" src="videos/t3/2.mp4"></video>
         </div>
         <div class="c-text">
           <h3>브랜드의 언어로 다시 쓰기</h3>
@@ -447,7 +513,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
       <div class="challenge-row reveal">
         <div class="c-media">
-          <video class="c-media-vid"  playsinline preload="auto" src="videos/ch/1.mp4"></video>
+          <video class="c-media-vid"  playsinline preload="auto" src="videos/t3/1.mp4"></video>
         </div>
         <div class="c-text">
           <h3>판단은 사람이, 실행은 AI가</h3>
