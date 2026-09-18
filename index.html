@@ -91,12 +91,13 @@
   */
 
   .hero-body{position:relative; z-index:2; padding:0 clamp(1.25rem,4vw,2.5rem) 2.2rem;}
+  
   /* 크기 확대 + 폭 제약 완화 */
   .hero-body h1{font-weight:700; letter-spacing:-.02em; font-size:clamp(2.7rem,7.5vw,5.2rem); line-height:1.16; color:#fff; max-width:46rem; word-break:keep-all;}
-  .hero-body h1 .mobile-break{display:none;}
-  @media(max-width:820px){.hero-body h1 .mobile-break{display:block;}}
+  .hero-body h1 .mobile-break{display:block;}
 @media(min-width:821px){.hero-body h1 .line2{white-space:nowrap;} .hero-body h1{max-width:none;}}
-  .hero-body h1 .dim{opacity:.5; font-weight:400;}
+.hero-body h1 .dim{opacity:.5; font-weight:400; font-size:.7em;}
+.real-spaced{letter-spacing:.08em;}
   .amber-dot{
   display:inline-block;
   font-size:0;
@@ -349,9 +350,10 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
     <div class="hero-scrim"></div>
     <div class="hero-body reveal">
 
-      <!--
-     <h1><span class="dim">기술과 철학을</span><br><span class="line2">기억에 남는<br class="mobile-break"> 장면으로</span></h1>
-     -->
+  
+     <h1>
+      <span class="dim">MAKE</span><br><span class="line2">VISION<br class="mobile-break"><span class="real-spaced">REAL</span><span class="amber-dot">.</span></span></h1>
+
 
       <a href="#work" class="hero-cta">Our Work →</a>
     </div>
