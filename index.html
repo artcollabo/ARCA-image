@@ -17,7 +17,7 @@
 --line: rgba(255,255,255,0.14);
     --font-display: 'Arial', 'Noto Sans KR', sans-serif;
 --font-base: 'Arial', 'Noto Sans KR', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-mono: 'Arial', monospace;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -82,8 +82,13 @@
   /* ---------- HERO ---------- */
   .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; overflow:hidden; background:#0a0a0a;}
   .hero-media{position:absolute; inset:0;}
+
+
   .hero-media video, .hero-media img{width:100%; height:100%; object-fit:cover; opacity:.72;}
+    /* 히어로페이지 블랙커버
   .hero-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.35) 55%, rgba(10,10,10,.92) 100%);}
+  */
+
   .hero-body{position:relative; z-index:2; padding:0 clamp(1.25rem,4vw,2.5rem) 2.2rem;}
   /* 크기 확대 + 폭 제약 완화 */
   .hero-body h1{font-weight:700; letter-spacing:-.02em; font-size:clamp(2.7rem,7.5vw,5.2rem); line-height:1.16; color:#fff; max-width:46rem; word-break:keep-all;}
@@ -91,7 +96,16 @@
   @media(max-width:820px){.hero-body h1 .mobile-break{display:block;}}
 @media(min-width:821px){.hero-body h1 .line2{white-space:nowrap;} .hero-body h1{max-width:none;}}
   .hero-body h1 .dim{opacity:.5; font-weight:400;}
-  .amber-dot{color:inherit;}
+  .amber-dot{
+  display:inline-block;
+  font-size:0;
+  width:8px;
+  height:8px;
+  background:red;
+  border-radius:50%;
+ 
+  margin-left:10px;
+}
   .hero-body .hero-cta{display:inline-flex; align-items:center; gap:.6rem; margin-top:2rem; font-family:var(--font-mono); font-size:12px; letter-spacing:.15em; text-transform:uppercase; color:#fff; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:.4rem;}
 
   /* ---------- CLIENT MARQUEE (히어로 하단 오버레이) ---------- */
@@ -216,21 +230,14 @@
   .team-grid::-webkit-scrollbar{display:none;}
   .team-grid .team-card{flex:0 0 62%; scroll-snap-align:start;}
 }
-  .team-card{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/5; background:#101010; border:1px solid var(--line); cursor:pointer;}
-  .team-photo{position:absolute; inset:0; width:100%; height:100%;}
-  .team-photo img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
-  .team-card:hover .team-photo img{transform:scale(1.04);}
-  .team-photo.empty{display:flex; align-items:center; justify-content:center; background:var(--ink-3); color:var(--bone); opacity:.3; font-size:1.6rem;}
-  .team-card::before{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.5), transparent 45%); z-index:1; pointer-events:none;}
-  .team-card::after{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(to top, rgba(10,10,10,.55), transparent 60%); opacity:0; transition:opacity .35s ease;}
-  .team-card:hover::after{opacity:1;}
-  .team-info{position:absolute; left:0; right:0; bottom:0; padding:1.2rem 1.2rem 1.3rem; background:linear-gradient(to top, rgba(10,10,10,.94), rgba(10,10,10,.75) 70%, transparent); color:#fff; transform:translateY(100%); transition:transform .38s cubic-bezier(.2,.7,.2,1); z-index:2;}
-  .team-card:hover .team-info{transform:translateY(0);}
-  .team-name{font-weight:700; font-size:1.05rem; margin-bottom:.2rem; font-family:var(--font-display);}
-  .team-role{font-family:var(--font-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; opacity:.8; margin-bottom:.6rem; color:rgba(255,255,255,.85);}
-  .team-bio{font-size:.82rem; line-height:1.6; opacity:.85;}
-  .team-name-tag{position:absolute; left:1.2rem; bottom:1.2rem; z-index:2; color:#fff; font-weight:700; font-size:1.05rem; transition:opacity .25s ease; text-shadow:0 2px 10px rgba(0,0,0,.7); font-family:var(--font-display);}
-  .team-card:hover .team-name-tag{opacity:0;}
+  .team-card{display:flex; flex-direction:column; align-items:center; text-align:center;}
+.team-photo{width:70%; max-width:170px; aspect-ratio:1/1; border-radius:50%; overflow:hidden; background:var(--ink-3); margin:0 auto 1.1rem;}
+.team-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+.team-photo.empty{display:flex; align-items:center; justify-content:center; color:var(--bone); opacity:.3; font-size:1.6rem;}
+.team-info{display:flex; flex-direction:column; gap:.35rem;}
+.team-name{font-weight:700; font-size:1.05rem; font-family:var(--font-display);}
+.team-role{font-family:var(--font-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; opacity:.7;}
+.team-email{font-size:.82rem; opacity:.55;}
 
   /* ---------- CONTACT ---------- */
   .contact-inner{display:flex; flex-direction:column; gap:2rem;}
@@ -292,7 +299,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
 <nav>
   <div class="navwrap">
-    <a href="#top" class="logo"><img src="images/logo.png" alt="blink ai."></a>
+    <a href="#top" class="logo"><img src="images/logo1.png" alt="blink ai."></a>
     <ul class="navlinks">
       <li><a href="#top"><span class="navnum"></span>Client</a></li>
       <li><a href="#work"><span class="navnum"></span>Work</a></li>
@@ -308,7 +315,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
 <div id="mobileMenuFull" class="mobile-menu-full">
   <div class="mmf-top">
-    <a href="#top" class="logo"><img src="images/logo.png" alt="blink ai."></a>
+    <a href="#top" class="logo"><img src="images/logo1.png" alt="blink ai."></a>
     <button id="mmfClose" class="mmf-close" aria-label="메뉴 닫기">✕</button>
   </div>
   <ul class="mmf-list">
@@ -330,8 +337,12 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-body reveal">
+
+      <!--
      <h1><span class="dim">기술과 철학을</span><br><span class="line2">기억에 남는<br class="mobile-break"> 장면으로</span></h1>
-      <a href="#work" class="hero-cta">View Work →</a>
+     -->
+
+      <a href="#work" class="hero-cta">Our Work →</a>
     </div>
     <div id="client" class="hero-clientbar">
       <div class="marquee-row">
@@ -394,40 +405,6 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 </div>
     </div>
   </section>
-<!-- SHOWCASE (히어로 다음, Work 전) -->
-<section class="showcase">
-  <div class="showcase-slide showcase-dark reveal">
-  <img class="showcase-bg" src="images/2.png" alt="">
-  <div class="showcase-scrim"></div>
-  <div class="showcase-content">
-    <div class="showcase-brand">
-     
-      <div class="showcase-sub"><img src="images/logo1.png" alt="IMAGE"></div>
-    </div>
-    <div class="showcase-right">
-      <div class="showcase-copy">
-        <p>카메라와 필름, 종이와 인쇄,<br>디지털 이미지와 AI 까지</p>
-        <p>우리가 지향하는 이미지는<br>차갑고 낯선 미래가 아닙니다</p>
-        <p>인류가 오래 전부터 상상해왔던 미래</p>
-        <p>기술과 철학을<br>기억에 남는 장면으로<br>남기겠습니다</p>
-      </div>
-      <div class="showcase-tag">ARCA IMAGE</div>
-    </div>
-  </div>
-</div>
-
-  <div class="showcase-slide showcase-light reveal">
-    <div class="wrap">
-      <img class="showcase-framed" src="images/3.png" alt="">
-      <div class="showcase-list">
-        <p>WE MAKE IMAGES.</p>
-        <p>IMAGES FOR WHAT COMES NEXT.</p>
-        <p>MOVING AND STILL IMAGE.</p>
-        <p>ARCHIVE, PRINT, AND BEYOND.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
   <!-- WORK -->
   <section id="work" style="border-top:1px solid var(--line);">
@@ -435,7 +412,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
       <div class="work-head reveal">
         <div>
           <span class="eyebrow"></span>
-          <h2 class="dropcap"><span class="drop">W</span>ork<span class="amber-dot"></span></h2>
+          <h2 class="dropcap"><span class="drop">WORK</span><span class="amber-dot">.</span></h2>
         </div>
         <p class="note">브랜드의 메시지는 명확하지만, 그것을 다르게 기억되게 만드는 건 다른 문제입니다. ARCA는 그 요소를 가장 효과적으로 전달하는 방법을 AI로 찾아냅니다.</p>
       </div>
@@ -489,7 +466,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
     <div class="wrap">
       <div class="reveal" style="margin-bottom:2.5rem;">
         <span class="eyebrow"></span>
-        <h2 class="dropcap"><span class="drop">C</span>hallenge<span class="amber-dot"></span></h2>
+        <h2 class="dropcap"><span class="drop">CHALLENGE</span><span class="amber-dot">.</span></h2>
       </div>
 
       <div class="challenge-row reveal">
@@ -529,54 +506,49 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
     <div class="wrap">
       <div class="reveal" style="margin-bottom:2.5rem;">
         <span class="eyebrow"></span>
-        <h2 class="dropcap"><span class="drop">T</span>eam<span class="amber-dot"></span></h2>
+        <h2 class="dropcap"><span class="drop">TEAM</span><span class="amber-dot">.</span></h2>
       </div>
       <div class="team-grid reveal">
         <div class="team-card">
-          <div class="team-photo"><img src="" alt=""></div>
-          <div class="team-name-tag">Director</div>
-          <div class="team-info">
-            <div class="team-name">Director</div>
-            <div class="team-role">Founder · Creative Director</div>
-            <p class="team-bio">ARCA 설립. </p>
-          </div>
-        </div>
+  <div class="team-photo"><img src="/images/team/team1.png" alt=""></div>
+  <div class="team-info">
+    <div class="team-name">Director</div>
+    <div class="team-role">Founder · Creative Director</div>
+    <div class="team-email">director@arcaimage.com</div>
+  </div>
+</div>
         <div class="team-card">
-          <div class="team-photo empty"></div>
-          <div class="team-name-tag">AI Artist</div>
-          <div class="team-info">
-            <div class="team-name">AI Artist</div>
-            <div class="team-role">Generative Visuals</div>
-            <p class="team-bio">이미지·영상 생성 모델을 다루며 브랜드 톤에 맞는 비주얼을 만듭니다.</p>
-          </div>
-        </div>
+  <div class="team-photo"><img src="/images/team/team2.png" alt=""></div>
+  <div class="team-info">
+    <div class="team-name">Director</div>
+    <div class="team-role">Founder · Creative Director</div>
+    <div class="team-email">director@arcaimage.com</div>
+  </div>
+</div>
         <div class="team-card">
-          <div class="team-photo empty"></div>
-          <div class="team-name-tag">AI Engineer</div>
-          <div class="team-info">
-            <div class="team-name">AI Engineer</div>
-            <div class="team-role">Workflow & Pipeline</div>
-            <p class="team-bio">모델별 워크플로우와 파이프라인을 설계하고 최신 모델을 통합합니다.</p>
-          </div>
-        </div>
+  <div class="team-photo"><img src="/images/team/team3.png" alt=""></div>
+  <div class="team-info">
+    <div class="team-name">Director</div>
+    <div class="team-role">Founder · Creative Director</div>
+    <div class="team-email">director@arcaimage.com</div>
+  </div>
+</div>
         <div class="team-card">
-          <div class="team-photo empty"></div>
-          <div class="team-name-tag">Producer</div>
-          <div class="team-info">
-            <div class="team-name">Producer</div>
-            <div class="team-role">Client & Schedule</div>
-            <p class="team-bio">일정과 예산을 관리하고 클라이언트와의 커뮤니케이션을 담당합니다.</p>
-          </div>
-        </div>
+  <div class="team-photo"><img src="/images/team/team4.png" alt=""></div>
+  <div class="team-info">
+    <div class="team-name">Director</div>
+    <div class="team-role">Founder · Creative Director</div>
+    <div class="team-email">director@arcaimage.com</div>
+  </div>
+</div>
         <div class="team-card">
-          <div class="team-photo empty"></div>
-          <div class="team-name-tag">Editor / Compositor</div>
-          <div class="team-info">
-            <div class="team-name">Editor / Compositor</div>
-            <div class="team-role">Post Production</div>
-            <p class="team-bio">실사 합성과 색보정, 편집으로 최종 완성도를 끌어올립니다.</p>
-          </div>
-        </div>
+  <div class="team-photo"><img src="/images/team/team5.png" alt=""></div>
+  <div class="team-info">
+    <div class="team-name">Director</div>
+    <div class="team-role">Founder · Creative Director</div>
+    <div class="team-email">director@arcaimage.com</div>
+  </div>
+</div>
       </div>
     </div>
   </section>
@@ -586,23 +558,58 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
     <div class="wrap contact-inner">
       <div class="reveal">
         <span class="eyebrow"></span>
-        <h2 class="dropcap"><span class="drop">C</span>ontact<span class="amber-dot"></span></h2>
+        <h2 class="dropcap"><span class="drop">CONTACT</span><span class="amber-dot">.</span></h2>
         <div class="contact-top">
           <p>상상을 만듭니다.</p>
-          <a href="#" class="btn-black" id="sendBtn">Send Inquiry →</a>
+          <a href="#" class="btn-black" id="sendBtn">Get Started →</a>
         </div>
       </div>
-      <form class="reveal" onsubmit="return handleSubmit(event)" style="display:flex; flex-direction:column; gap:1.6rem; max-width:44rem;">
-        <div class="form-row">
-          <div class="field"><label>이름</label><input type="text" placeholder="홍길동" required></div>
-          <div class="field"><label>이메일</label><input type="email" placeholder="your@brand.com" required></div>
-        </div>
-        <div class="field"><label>회사 / 브랜드</label><input type="text" placeholder="브랜드명"></div>
-        <div class="field"><label>프로젝트 설명</label><textarea placeholder="목적, 일정, 예산 (10자 이상)" required></textarea></div>
-        <p class="mono" style="font-size:11px; opacity:.4;" id="submitNote"></p>
-      </form>
+      <form id="contactForm" class="reveal" action="https://formspree.io/f/xkjgnlnl" method="POST" style="display:flex; flex-direction:column; gap:1.6rem; max-width:44rem;">
+  <div class="form-row">
+    <div class="field"><label>이름</label><input type="text" name="name" placeholder="홍길동" required></div>
+    <div class="field"><label>이메일</label><input type="email" name="email" placeholder="your@brand.com" required></div>
+  </div>
+  <div class="field"><label>회사 / 브랜드</label><input type="text" name="brand" placeholder="브랜드명"></div>
+  <div class="field"><label>프로젝트 설명</label><textarea name="message" placeholder="목적, 일정, 예산 (10자 이상)" required></textarea></div>
+  <p class="mono" style="font-size:11px; opacity:.4;" id="submitNote"></p>
+</form>
     </div>
   </section>
+
+  <!-- SHOWCASE (히어로 다음, Work 전) -->
+<section class="showcase">
+  <div class="showcase-slide showcase-dark reveal">
+  <img class="showcase-bg" src="images/2.png" alt="">
+  <div class="showcase-scrim"></div>
+  <div class="showcase-content">
+    <div class="showcase-brand">
+     
+      <div class="showcase-sub"><img src="images/logo1.png" alt="IMAGE"></div>
+    </div>
+    <div class="showcase-right">
+      <div class="showcase-copy">
+        <p>카메라와 필름, 종이와 인쇄,<br>디지털 이미지와 AI 까지</p>
+        <p>우리가 지향하는 이미지는<br>차갑고 낯선 미래가 아닙니다</p>
+        <p>인류가 오래 전부터 상상해왔던 미래</p>
+        <p>기술과 철학을<br>기억에 남는 장면으로<br>남기겠습니다</p>
+      </div>
+      <div class="showcase-tag">ARCA IMAGE</div>
+    </div>
+  </div>
+</div>
+
+  <div class="showcase-slide showcase-light reveal">
+    <div class="wrap">
+      <img class="showcase-framed" src="images/3.png" alt="">
+      <div class="showcase-list">
+        <p>WE MAKE IMAGES.</p>
+        <p>IMAGES FOR WHAT COMES NEXT.</p>
+        <p>MOVING AND STILL IMAGE.</p>
+        <p>ARCHIVE, PRINT, AND BEYOND.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 </main>
 
@@ -696,17 +703,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 const cMediaVideos = Array.from(document.querySelectorAll('.c-media-vid'));
 const visibilityRatio = new Map();
 
-const scrollVideoObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    visibilityRatio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0);
-  });
-  let topVideo = null;
-  let topRatio = 0.5;
-  cMediaVideos.forEach(v => {
-    const ratio = visibilityRatio.get(v) || 0;
-    if (ratio >= topRatio) { topRatio = ratio; topVideo = v; }
-  });
-  function safePlay(video){
+function safePlay(video){
   const p = video.play();
   video._playPromise = p;
   if (p !== undefined) p.catch(() => {});
@@ -719,11 +716,24 @@ function safePause(video){
     video.pause();
   }
 }
+function applyTopVideo(){
+  let topVideo = null;
+  let topRatio = 0.5;
+  cMediaVideos.forEach(v => {
+    const ratio = visibilityRatio.get(v) || 0;
+    if (ratio >= topRatio) { topRatio = ratio; topVideo = v; }
+  });
+  cMediaVideos.forEach(v => {
+    if (v === topVideo) safePlay(v);
+    else safePause(v);
+  });
+}
 
-cMediaVideos.forEach(v => {
-  if (v === topVideo) safePlay(v);
-  else safePause(v);
-});
+const scrollVideoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    visibilityRatio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0);
+  });
+  applyTopVideo();
 }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
 cMediaVideos.forEach(v => scrollVideoObserver.observe(v));
 
@@ -806,14 +816,30 @@ mobileMenuFull.querySelectorAll('a').forEach(a => {
     });
   });
 
-  function handleSubmit(e){
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    document.getElementById('submitNote').textContent = '문의가 접수되었습니다. 감사합니다.';
-    return false;
-  }
+    const note = document.getElementById('submitNote');
+    note.textContent = '전송 중...';
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        note.textContent = '문의가 접수되었습니다. 감사합니다.';
+        contactForm.reset();
+      } else {
+        note.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해주세요.';
+      }
+    } catch (err) {
+      note.textContent = '전송에 실패했습니다. 인터넷 연결을 확인해주세요.';
+    }
+  });
   document.getElementById('sendBtn').addEventListener('click', (e) => {
     e.preventDefault();
-    document.querySelector('form').requestSubmit();
+    contactForm.requestSubmit();
     document.getElementById('contact').scrollIntoView({behavior:'smooth'});
   });
 
