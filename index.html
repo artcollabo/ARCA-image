@@ -39,7 +39,7 @@
  .logo{font-size:1.15rem; font-weight:700; letter-spacing:-10em; text-transform:lowercase;}
 
   .logo span{color:var(--bone);}
-  .logo img{height:45px; width:auto; display:block; filter:brightness(0) invert(1);}
+  .logo img{height:45px; width:auto; display:block;}
  @media(max-width:820px){.logo img{height:28px;}}
   .navlinks{display:flex; gap:2.2rem; list-style:none;}
   .navlinks a{position:relative; font-family:var(--font-mono); font-size:11px; letter-spacing:.15em; text-transform:uppercase; opacity:.65; transition:opacity .25s; padding-bottom:.3rem;}
@@ -61,7 +61,7 @@
 .mobile-menu-full{position:fixed; inset:0; z-index:300; background:#0a0a0a; display:flex; flex-direction:column; transform:translateY(-100%); transition:transform .4s cubic-bezier(.2,.7,.2,1);}
 .mobile-menu-full.open{transform:translateY(0);}
 .mmf-top{display:flex; align-items:center; justify-content:space-between; padding:1.2rem clamp(1.25rem,4vw,2.5rem); border-bottom:1px solid rgba(255,255,255,.15);}
-.mmf-top .logo img{height:45px; filter:brightness(0) invert(1);}
+.mmf-top .logo img{height:45px;}
 .mmf-close{width:28px; height:28px; color:#fff; font-size:1.5rem; line-height:1; display:flex; align-items:center; justify-content:center;}
 .mmf-list{list-style:none; flex:1; display:flex; flex-direction:column; justify-content:center; padding:0 clamp(1.25rem,4vw,2.5rem); overflow-y:auto;}
 .mmf-list li{border-bottom:1px solid rgba(255,255,255,.15);}
@@ -100,8 +100,8 @@
   .hero-body h1{font-weight:700; letter-spacing:-.02em; font-size:clamp(2.7rem,7.5vw,5.2rem); line-height:1.16; color:#fff; max-width:46rem; word-break:keep-all;}
   .hero-body h1 .mobile-break{display:block;}
 @media(min-width:821px){.hero-body h1 .line2{white-space:nowrap;} .hero-body h1{max-width:none;}}
-.hero-body h1 .dim{opacity:.5; font-weight:400; font-size:.7em;}
-.real-spaced{letter-spacing:.08em;}
+
+.real-spaced{letter-spacing:normal;}
   .amber-dot{
   display:inline-block;
   font-size:0;
@@ -248,9 +248,9 @@
 
   /* ---------- CONTACT ---------- */
   .contact-inner{display:flex; flex-direction:column; gap:2rem;}
-  .contact-top{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:1.5rem; margin-bottom:1rem;}
-  .contact-top p{font-size:1.2rem; font-weight:500;}
-  .btn-black{display:inline-flex; align-items:center; gap:.6rem; background:var(--bone); color:var(--ink); font-weight:600; font-size:.9rem; padding:.95rem 1.7rem; border-radius:999px; transition:opacity .2s;}
+.contact-top{display:flex; flex-wrap:nowrap; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem;}
+  .contact-top p{font-size:clamp(1rem,4vw,1.6rem); font-weight:300;}
+  .btn-black{display:inline-flex; align-items:center; gap:.4rem; background:var(--bone); color:var(--ink); font-weight:600; font-size:clamp(.72rem,2.2vw,.9rem); padding:clamp(.6rem,2vw,.95rem) clamp(.9rem,3vw,1.7rem); border-radius:999px; transition:opacity .2s; flex-shrink:0; white-space:nowrap;}
   .btn-black:hover{opacity:.8;}
   .form-row{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;}
   @media(max-width:640px){.form-row{grid-template-columns:1fr;}}
@@ -286,7 +286,7 @@
 footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 .footer-top{display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid rgba(255,255,255,.15);}
 @media(max-width:720px){.footer-top{grid-template-columns:1fr;}}
-.footer-logo img{height:70px; width:auto; display:block; margin-bottom:.9rem; filter:brightness(0) invert(1);}
+.footer-logo img{height:70px; width:auto; display:block; margin-bottom:.9rem;}
 .footer-desc{font-size:1.2rem; color:rgba(255,255,255,.55); line-height:1.6; margin-bottom:1.2rem; max-width:22rem;}
 .footer-sns{display:inline-flex; align-items:center; justify-content:center; color:rgba(255,255,255,.75); transition:color .2s ease;}
 .footer-sns:hover{color:#fff;}
@@ -444,7 +444,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
         <div class="tab-panel active" id="t1">
           <div class="work-grid">
             <div class="wcard" data-video="videos/t3/2.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-50.png" alt=""><img class="wcard-logo" src="images/logos/Gucci.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t3/3.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="images/sn/3-40.png" alt=""><img class="wcard-logo" src="images/logos/asics.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t3/3.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-40.png" alt=""><img class="wcard-logo" src="images/logos/asics.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
             <div class="wcard" data-video="videos/t3/1.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-30.png" alt=""><img class="wcard-logo" src="images/logos/dangguen.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
             <div class="wcard" data-video="videos/t3/Alloso.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-10.png" alt=""><img class="wcard-logo" src="images/logos/alloso.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
             <div class="wcard" data-video="videos/t3/Diame.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/3-20.png" alt=""><img class="wcard-logo" src="images/logos/diame.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
@@ -455,7 +455,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
         <div class="tab-panel" id="t2">
           <div class="work-grid">
             <div class="wcard" data-video="videos/t2/jeju.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-10.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
-            <div class="wcard" data-video="videos/t2/addd.mp4" data-client="" data-title="NAVIEN AI SHORTS"><img class="wcard-img" src="images/sn/2-60.png" alt=""><img class="wcard-logo" src="images/logos/seoul.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
+            <div class="wcard" data-video="videos/t2/addd.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-60.png" alt=""><img class="wcard-logo" src="images/logos/seoul.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
             <div class="wcard" data-video="videos/t2/ckl.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-50.png" alt=""><img class="wcard-logo" src="images/logos/ckl.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
             <div class="wcard" data-video="videos/t2/kcu.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-20.png" alt=""><img class="wcard-logo" src="images/logos/ktu.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
             <div class="wcard" data-video="videos/t2/sejong.mp4" data-client="" data-title=""><img class="wcard-img" src="images/sn/2-40.png" alt=""><img class="wcard-logo" src="images/logos/sejong.png" alt=""><div class="wcard-playbtn"><span>▶</span></div><div class="wcard-body"><div class="wcard-client"></div><div class="wcard-title"></div></div></div>
@@ -492,7 +492,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
         </div>
         <div class="c-text">
           <h3>기술과 감정</h3>
-          <p>AI 영상은 이제 놀라울 만큼 매끈합니다. 그런데 그 매끈함이 오히려 문제가 될 때가 있습니다. 지나치게 정제된 화면은 보는 사람에게 '이건 진짜가 아니다'라는 신호를 먼저 보냅니다. ARCA는 완벽함을 덜어내는 데서 다시 시작합니다. 필름 그레인, 미세한 흔들림, 빛이 번지는 방식까지 — 사람의 눈에 익숙한 불완전함을 다시 심어 넣습니다. 기술보다 감정이 먼저 도착하는 장면, 그것이 ARCA가 만드는 영상입니다.
+          <p>AI 영상은 이제 놀라울 만큼 매끈합니다. 그런데 그 매끈함이 오히려 문제가 될 때가 있습니다. 지나치게 정제된 화면은 보는 사람에게 '이건 진짜가 아니다'라는 신호를 먼저 보냅니다. ARCA는 완벽함을 덜어내는 데서 다시 시작합니다. 필름 그레인, 미세한 흔들림, 빛이 번지는 방식까지 사람의 눈에 익숙한 불완전함을 다시 심어 넣습니다. 기술보다 감정이 먼저 도착하는 장면, 그것이 ARCA가 만드는 영상입니다.
       
           </div>
       </div>
@@ -503,7 +503,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
         </div>
         <div class="c-text">
           <h3>하나의 장면, 여러 개의 화면</h3>
-          <p>캠페인 하나에도 요구되는 화면은 하나가 아닙니다. 메인 필름, 세로형 숏폼, 배너, 매장 스크린 — 같은 메시지를 전혀 다른 비율과 길이로 전달해야 합니다. 전통적인 촬영 방식으로는 그때마다 다시 찍거나 타협할 수밖에 없었습니다. ARCA는 하나의 세계관을 AI로 확장해 각 채널에 맞는 최적의 장면을 다시 구성합니다. 하나를 만들고 여러 번 줄이는 것이 아니라, 처음부터 여러 화면을 염두에 두고 설계합니다.
+          <p>캠페인 하나에도 요구되는 화면은 하나가 아닙니다. 메인 필름, 세로형 숏폼, 배너, 매장 스크린 같은 메시지를 전혀 다른 비율과 길이로 전달해야 합니다. 전통적인 촬영 방식으로는 그때마다 다시 찍거나 타협할 수밖에 없었습니다. ARCA는 하나의 세계관을 AI로 확장해 각 채널에 맞는 최적의 장면을 다시 구성합니다. 하나를 만들고 여러 번 줄이는 것이 아니라, 처음부터 여러 화면을 염두에 두고 설계합니다.
              </div>
       </div>
 
@@ -534,7 +534,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="team-info">
     <div class="team-name">안원경 </div>
     <div class="team-role">Founder</div>
-    <div class="team-email">contact@arcaimage.com</div>
+    <div class="team-email">contact@artcollabo.net</div>
   </div>
 </div>
         <div class="team-card">
@@ -542,7 +542,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="team-info">
     <div class="team-name">안원진</div>
     <div class="team-role">Executive Producer</div>
-    <div class="team-email">awj@arcaimage.com</div>
+    <div class="team-email">magazzang123@gmail.com</div>
   </div>
 </div>
         <div class="team-card">
@@ -550,7 +550,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="team-info">
     <div class="team-name">이진영</div>
     <div class="team-role">Creative Director</div>
-    <div class="team-email">ljy@arcaimage.com</div>
+    <div class="team-email">2wlsehd@gmail.com</div>
   </div>
 </div>
         <div class="team-card">
@@ -558,7 +558,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="team-info">
     <div class="team-name">이기쁨</div>
     <div class="team-role">Director</div>
-    <div class="team-email">lgp@arcaimage.com</div>
+    <div class="team-email"></div>
   </div>
 </div>
         <div class="team-card">
@@ -566,7 +566,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="team-info">
     <div class="team-name">김덕문</div>
     <div class="team-role">AI Artist</div>
-    <div class="team-email">kdm@arcaimage.com</div>
+    <div class="team-email"></div>
   </div>
 </div>
       </div>
@@ -580,7 +580,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
         <span class="eyebrow"></span>
         <h2 class="dropcap"><span class="drop">CONTACT</span><span class="amber-dot">.</span></h2>
         <div class="contact-top">
-          <p>상상을 만듭니다.</p>
+          <p>02) 558 - 8302<br>contact@artcollabo.net</p>
           <a href="#" class="btn-black" id="sendBtn">Get Started →</a>
         </div>
       </div>
@@ -604,7 +604,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="showcase-content">
     <div class="showcase-brand">
      
-      <div class="showcase-sub"><img src="images/logo1.png" alt="IMAGE"></div>
+      <div class="showcase-sub"><img src="images/logo2.png" alt="IMAGE"></div>
     </div>
     <div class="showcase-right">
       <div class="showcase-copy">
@@ -637,8 +637,8 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="wrap footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="images/logo.png" alt="ARCA"></div>
-        <p class="footer-desc">브랜드의 상상을 오래 남을 장면으로.</p>
+        <div class="footer-logo"><img src="images/logo1.png" alt="ARCA"></div>
+        <p class="footer-desc"><span style="font-family:Arial, sans-serif;">MAKE VISION REAL</span><br>기술과 철학을 기억에 남는 장면으로</p>
 
         <!--
         <a href="https://instagram.com/[인스타그램아이디]" target="_blank" rel="noopener noreferrer" class="footer-sns" aria-label="Instagram">
@@ -656,7 +656,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="footer-row">[안원경]</div>
   <div class="footer-row">[667-81-00253]</div>
   <div class="footer-row">[서울특별시 강남구 테헤란로329 904호]</div>
-  <div class="footer-row">[010-3352-8302 / contact@arcaimage.com]</div>
+  <div class="footer-row">[010-3352-8302 / contact@artcollabo.net]</div>
 </div>
     </div>
     <div class="footer-bottom">
