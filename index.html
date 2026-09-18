@@ -81,6 +81,7 @@
 
   /* ---------- HERO ---------- */
   .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; overflow:hidden; background:#0a0a0a;}
+  @media(max-width:820px){.hero{min-height:70vh;}}
   .hero-media{position:absolute; inset:0;}
 
 
@@ -279,18 +280,27 @@
 footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 .footer-top{display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid rgba(255,255,255,.15);}
 @media(max-width:720px){.footer-top{grid-template-columns:1fr;}}
-.footer-logo{font-family:var(--font-display); font-weight:800; font-size:1.4rem; letter-spacing:-.01em; margin-bottom:.7rem;}
-.footer-desc{font-size:.85rem; color:rgba(255,255,255,.55); line-height:1.6; margin-bottom:1.2rem; max-width:22rem;}
+.footer-logo img{height:70px; width:auto; display:block; margin-bottom:.9rem; filter:brightness(0) invert(1);}
+.footer-desc{font-size:1.2rem; color:rgba(255,255,255,.55); line-height:1.6; margin-bottom:1.2rem; max-width:22rem;}
 .footer-sns{display:inline-flex; align-items:center; justify-content:center; color:rgba(255,255,255,.75); transition:color .2s ease;}
 .footer-sns:hover{color:#fff;}
-.footer-legal{display:flex; flex-direction:column; gap:.6rem;}
+.footer-legal{display:flex; flex-direction:column; gap:.6rem; text-align:left; align-items:flex-start;}
+@media(max-width:720px){
+  .footer-top{grid-template-columns:1fr;}
+  .footer-legal{align-items:flex-start; text-align:left;}
+}
 .footer-row{display:flex; gap:.9rem; font-size:.82rem; color:rgba(255,255,255,.7); line-height:1.5;}
 .footer-label{font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.4); flex-shrink:0; width:6.5rem;}
-.footer-bottom{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; padding-top:1.8rem; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em;}
+.footer-bottom{position:relative; display:flex; flex-wrap:wrap; justify-content:flex-start; align-items:center; gap:1rem; padding-top:1.8rem; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em;}
+@media(max-width:640px){
+  .footer-bottom{flex-direction:column; align-items:center; text-align:center; gap:.6rem;}
+  .footer-copyright{position:static !important; transform:none !important;}
+}
+
 .footer-links{display:flex; align-items:center; gap:.8rem; color:rgba(255,255,255,.6);}
 .footer-links a:hover{color:#fff;}
 .footer-divider{opacity:.3;}
-.footer-copyright{color:rgba(255,255,255,.4);}
+.footer-copyright{color:rgba(255,255,255,.4); position:absolute; left:50%; transform:translateX(-50%);}
 </style>
 </head>
 <body>
@@ -414,7 +424,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
           <span class="eyebrow"></span>
           <h2 class="dropcap"><span class="drop">WORK</span><span class="amber-dot">.</span></h2>
         </div>
-        <p class="note">브랜드의 메시지는 명확하지만, 그것을 다르게 기억되게 만드는 건 다른 문제입니다. ARCA는 그 요소를 가장 효과적으로 전달하는 방법을 AI로 찾아냅니다.</p>
+        <p class="note">브랜드의 메시지는 이미 정해져 있습니다. 그것을 어떤 장면으로 기억되는지가 중요합니다. ARCA는 AI로 가장 효과적인 답을 찾습니다.</p>
       </div>
 
       <div class="reveal">
@@ -617,8 +627,8 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <div class="wrap footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo">ARCA</div>
-        <p class="footer-desc">브랜드의 상상을 AI 영상 제작으로 현실에.</p>
+        <div class="footer-logo"><img src="images/logo.png" alt="ARCA"></div>
+        <p class="footer-desc">브랜드의 상상을 오래 남을 장면으로.</p>
 
         <!--
         <a href="https://instagram.com/[인스타그램아이디]" target="_blank" rel="noopener noreferrer" class="footer-sns" aria-label="Instagram">
@@ -632,12 +642,12 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
       </div>
       <div class="footer-legal">
-        <div class="footer-row"><span class="footer-label">ARTCOLLABO</span><span>[ARTCOLLABO]</span></div>
-        <div class="footer-row"><span class="footer-label">안원경</span><span>[안원경]</span></div>
-        <div class="footer-row"><span class="footer-label">667-81-00253</span><span>[667-81-00253]</span></div>
-        <div class="footer-row"><span class="footer-label">주소</span><span>[서울특별시 · · · · · ]</span></div>
-        <div class="footer-row"><span class="footer-label">010-3352-8302</span><span>[010-3352-8302 / 이메일]</span></div>
-      </div>
+  <div class="footer-row">[ARTCOLLABO]</div>
+  <div class="footer-row">[안원경]</div>
+  <div class="footer-row">[667-81-00253]</div>
+  <div class="footer-row">[서울특별시 강남구 테헤란로329 904호]</div>
+  <div class="footer-row">[010-3352-8302 / contact@arcaimage.com]</div>
+</div>
     </div>
     <div class="footer-bottom">
       <div class="footer-links">
