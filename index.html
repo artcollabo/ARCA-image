@@ -351,6 +351,13 @@
   .field input, .field textarea{width:100%; font-family:inherit; font-size:.95rem; padding:.85rem 0; background:transparent; border:none; border-bottom:1px solid var(--line); outline:none; color:var(--bone);}
   .field input:focus, .field textarea:focus{border-color:var(--bone);}
   .field textarea{resize:none; min-height:70px;}
+  /* 유입 경로(체크박스): .field 의 글자 크기·밑줄을 그대로 따른다 */
+  .source-group{border:0; margin:0; padding:0 0 .85rem; min-width:0; border-bottom:1px solid var(--line);}
+  .source-group legend{font-size:.8rem; opacity:.55; padding:0; margin-bottom:.5rem;}
+  .source-options{display:flex; flex-wrap:wrap; gap:.7rem 1.6rem; padding-top:.35rem;}
+  .source-options label{display:inline-flex; align-items:center; gap:.5rem; font-size:.95rem; cursor:pointer;}
+  .source-options input{width:1rem; height:1rem; margin:0; accent-color:var(--bone); cursor:pointer;}
+  .field[hidden]{display:none;}
 
   #toTop{position:fixed; bottom:1.5rem; right:1.5rem; z-index:50; width:2.9rem; height:2.9rem; border-radius:50%; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:.3s;}
   #toTop.show{opacity:1; pointer-events:auto;}
@@ -670,7 +677,24 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
     <div class="field"><label>이메일</label><input type="email" name="email" placeholder="your@brand.com" required></div>
   </div>
   <div class="field"><label>회사 / 브랜드</label><input type="text" name="brand" placeholder="브랜드명"></div>
+  <fieldset class="source-group">
+    <legend>어떻게 알게 되셨나요? (여러 개 선택 가능)</legend>
+    <div class="source-options">
+      <label><input type="checkbox" name="source" value="AI 서비스" id="sourceAi">AI 서비스(ChatGPT, Gemini, Claude, Perplexity 등)</label>
+      <label><input type="checkbox" name="source" value="검색">검색(네이버, 구글)</label>
+      <label><input type="checkbox" name="source" value="지인 소개">지인 소개</label>
+      <label><input type="checkbox" name="source" value="유튜브·SNS">유튜브·SNS</label>
+      <label><input type="checkbox" name="source" value="기존 거래">기존 거래</label>
+      <label><input type="checkbox" name="source" value="그 밖">그 밖</label>
+    </div>
+  </fieldset>
+  <div class="field" id="sourceAiField" hidden><label for="sourceAiInput">어느 서비스였나요?</label><input type="text" name="source_ai" id="sourceAiInput" maxlength="100" disabled></div>
   <div class="field"><label>프로젝트 설명</label><textarea name="message" placeholder="목적, 일정, 예산 (10자 이상)" required></textarea></div>
+  <!-- 유입 경로 자동 기록(보낼 때 스크립트가 채움) -->
+  <input type="hidden" name="first_referrer">
+  <input type="hidden" name="first_landing">
+  <input type="hidden" name="utm">
+  <input type="hidden" name="auto_source">
   <p class="mono" style="font-size:11px; opacity:.4;" id="submitNote"></p>
 </form>
     </div>
@@ -960,7 +984,66 @@ mobileMenuFull.querySelectorAll('a').forEach(a => {
     });
   });
 
+  // ---------- 유입 경로 기록 ----------
+  // 처음 들어온 경로·페이지·utm 값을 탭 세션 동안 한 번만 저장한다(이후 페이지 이동에도 첫 값 유지).
+  const ATTRIB_KEY = 'mf_first_touch';
+  const AI_HOSTS = ['chatgpt.com', 'chat.openai.com', 'perplexity.ai', 'gemini.google.com', 'claude.ai', 'copilot.microsoft.com'];
+  const AI_UTM_WORDS = ['chatgpt', 'openai', 'perplexity', 'gemini', 'claude', 'copilot'];
+
+  function readFirstTouch(){
+    const utmPairs = Array.from(new URLSearchParams(location.search))
+      .filter(([k]) => k.toLowerCase().startsWith('utm_'));
+    const current = {
+      referrer: document.referrer || '',
+      landing: location.href,
+      utm: utmPairs.map(([k, v]) => `${k}=${v}`).join('&'),
+      utmSource: (utmPairs.find(([k]) => k.toLowerCase() === 'utm_source') || [, ''])[1]
+    };
+    try {
+      const saved = sessionStorage.getItem(ATTRIB_KEY);
+      if (saved) return JSON.parse(saved);
+      sessionStorage.setItem(ATTRIB_KEY, JSON.stringify(current));
+    } catch (_) { /* 사생활 보호 모드 등 저장소를 못 쓰면 지금 값을 쓴다 */ }
+    return current;
+  }
+  const firstTouch = readFirstTouch();
+
+  function isAiSource(t){
+    let host = '';
+    try { host = new URL(t.referrer).hostname.toLowerCase(); } catch (_) {}
+    const fromAiHost = AI_HOSTS.some(h => host === h || host.endsWith('.' + h));
+    const utmSource = (t.utmSource || '').toLowerCase();
+    const fromAiUtm = AI_UTM_WORDS.some(w => utmSource.includes(w));
+    return fromAiHost || fromAiUtm;
+  }
+
   const contactForm = document.getElementById('contactForm');
+
+  // "AI 서비스"를 고르면 어느 서비스였는지 적는 칸을 연다. 닫힌 칸은 보내지 않는다(disabled).
+  const sourceAi = document.getElementById('sourceAi');
+  const sourceAiField = document.getElementById('sourceAiField');
+  const sourceAiInput = document.getElementById('sourceAiInput');
+  function syncSourceAiField(){
+    const on = sourceAi.checked;
+    sourceAiField.hidden = !on;
+    sourceAiInput.disabled = !on;
+  }
+  sourceAi.addEventListener('change', syncSourceAiField);
+
+  // 보내기 직전에 숨은 칸을 채우고 FormData를 만든다
+  function buildContactFormData(){
+    contactForm.elements.first_referrer.value = firstTouch.referrer;
+    contactForm.elements.first_landing.value = firstTouch.landing;
+    contactForm.elements.utm.value = firstTouch.utm;
+    contactForm.elements.auto_source.value = isAiSource(firstTouch) ? 'AI' : '기타';
+    const fd = new FormData(contactForm);
+    // 같은 이름의 체크박스 값을 한 줄로 묶는다(수신 메일에서 여러 개가 모두 보이도록)
+    const sources = fd.getAll('source');
+    fd.delete('source');
+    fd.set('source', sources.join(', '));
+    return fd;
+  }
+
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const note = document.getElementById('submitNote');
@@ -968,12 +1051,13 @@ mobileMenuFull.querySelectorAll('a').forEach(a => {
     try {
       const res = await fetch(contactForm.action, {
         method: 'POST',
-        body: new FormData(contactForm),
+        body: buildContactFormData(),
         headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
         note.textContent = '문의가 접수되었습니다. 감사합니다.';
         contactForm.reset();
+        syncSourceAiField();
       } else {
         note.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
       }
