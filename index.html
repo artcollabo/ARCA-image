@@ -21,7 +21,7 @@
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- 구조화 데이터. 확인 대기라 넣지 않은 것: Organization의 address(사업자등록증 주소), sameAs(인스타그램·블로그·유튜브), foundingDate -->
+<!-- 구조화 데이터. 확인 대기라 넣지 않은 것: Organization의 sameAs(인스타그램·블로그·유튜브), foundingDate -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -35,6 +35,15 @@
       "url": "https://mullifilm.com/",
       "logo": "https://mullifilm.com/images/brand/mullifilm-wordmark-black.svg",
       "telephone": "+82-2-558-8302",
+      "email": "hello@mullifilm.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "강남대로12길 23-15, 2층(양재동, 태산빌딩)",
+        "addressLocality": "서초구",
+        "addressRegion": "서울특별시",
+        "postalCode": "06779",
+        "addressCountry": "KR"
+      },
       "founder": { "@id": "https://mullifilm.com/#director" }
     },
     {
