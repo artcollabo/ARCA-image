@@ -40,7 +40,7 @@
   #progress{position:fixed; top:0; left:0; height:2px; background:var(--bone); width:0%; z-index:100; transform-origin:0 50%;}
 
   /* nav */
-  nav{position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(10,10,10,0.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);}
+  nav{position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(0,0,0,0.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);}
   .navwrap{padding:1.2rem clamp(1.25rem,4vw,2.5rem); display:flex; align-items:center; justify-content:space-between;}
  .logo{font-size:1.15rem; font-weight:700; letter-spacing:-10em; text-transform:lowercase;}
 
@@ -65,7 +65,7 @@
 @media(max-width:820px){.hamburger{display:flex;}}
 
 /* 풀스크린 모바일 메뉴 */
-.mobile-menu-full{position:fixed; inset:0; z-index:300; background:#0a0a0a; display:flex; flex-direction:column; transform:translateY(-100%); transition:transform .4s cubic-bezier(.2,.7,.2,1);}
+.mobile-menu-full{position:fixed; inset:0; z-index:300; background:var(--ink); display:flex; flex-direction:column; transform:translateY(-100%); transition:transform .4s cubic-bezier(.2,.7,.2,1);}
 .mobile-menu-full.open{transform:translateY(0);}
 .mmf-top{display:flex; align-items:center; justify-content:space-between; padding:1.2rem clamp(1.25rem,4vw,2.5rem); border-bottom:1px solid rgba(255,255,255,.15);}
 .mmf-top .logo img{width:184px; height:auto;}
@@ -87,20 +87,28 @@
   .reveal.in{opacity:1; transform:none;}
 
   /* ---------- HERO ---------- */
-  .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; overflow:hidden; background:#0a0a0a;}
+  .hero{position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; overflow:hidden; background:var(--ink);}
   @media(max-width:820px){.hero{min-height:75vh;}}
 
   .hero-media{position:absolute; inset:0;}
 
 
   .hero-media video, .hero-media img{width:100%; height:100%; object-fit:cover; opacity:.72;}
+  /* 임시: 새 첫 화면 영상이 오면 삭제. 시작점으로 옮기기 전에는 영상을 숨긴다 */
+  .hero-media video#heroVideo{opacity:0; transition:opacity .4s ease;}
+  .hero-media video#heroVideo.is-ready{opacity:.72;}
     /* 히어로페이지 블랙커버
-  .hero-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,.15) 0%, rgba(10,10,10,.35) 55%, rgba(10,10,10,.92) 100%);}
+  .hero-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.92) 100%);}
   */
 
 .hero-body{position:relative; z-index:5; padding:0 clamp(1.25rem,4vw,2.5rem) 2.2rem;}
 @media(max-width:820px){
-  .hero-body{position:absolute; top:30%; left:0; right:0; transform:translateY(-50%); padding-bottom:0;} /* 소개 글이 늘어난 만큼 36%→30% */
+  /* 36%로 되돌리면 390×844에서 OUR WORK와 로고 띠 간격이 6px뿐이라 30%를 유지. 키 작은 화면에서도 겹치지 않게 첫 화면 최소 높이 640px */
+  .hero{min-height:max(75vh, 640px);}
+  .hero-body{position:absolute; top:30%; left:0; right:0; transform:translateY(-50%); padding-bottom:0;}
+  /* 밝은 장면에서도 소개 글이 읽히도록 글 뒤에 아래에서 위로 옅어지는 어두운 층 */
+  .hero-body::before{content:""; position:absolute; inset:-2.5rem 0 -2rem; z-index:-1; pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.35) 0%, rgba(0,0,0,.35) 45%, rgba(0,0,0,0) 100%);}
 }
   
   /* 크기 확대 + 폭 제약 완화 */
@@ -209,7 +217,7 @@
   .wcard{position:relative; border-radius:6px; overflow:hidden; aspect-ratio:4/3; background:#101010; cursor:pointer;}
   .wcard-img, .wcard-vid{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .7s ease;}
   .wcard:hover .wcard-img, .wcard:hover .wcard-vid{transform:scale(1.06);}
-  .wcard::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(10,10,10,.92), rgba(10,10,10,.1) 55%, transparent);}
+  .wcard::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.92), rgba(0,0,0,.1) 55%, transparent);}
   .wcard-playbtn{position:absolute; inset:0; z-index:3; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .3s ease;}
   .wcard-playbtn span{width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.92); color:#141414; display:flex; align-items:center; justify-content:center; font-size:15px; padding-left:3px; transform:scale(.85); transition:transform .3s ease;}
   .wcard:hover .wcard-playbtn{opacity:1;}
@@ -279,7 +287,7 @@
   .field input:focus, .field textarea:focus{border-color:var(--bone);}
   .field textarea{resize:none; min-height:70px;}
 
-  #toTop{position:fixed; bottom:1.5rem; right:1.5rem; z-index:50; width:2.9rem; height:2.9rem; border-radius:50%; background:rgba(10,10,10,.85); backdrop-filter:blur(10px); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:.3s;}
+  #toTop{position:fixed; bottom:1.5rem; right:1.5rem; z-index:50; width:2.9rem; height:2.9rem; border-radius:50%; background:rgba(0,0,0,.85); backdrop-filter:blur(10px); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:.3s;}
   #toTop.show{opacity:1; pointer-events:auto;}
 
   /* ---------- VIDEO MODAL ---------- */
@@ -295,7 +303,7 @@
   
 
 /* ---------- TEXT MODAL (약관/개인정보처리방침) ---------- */
-.text-modal{position:fixed; inset:0; z-index:400; background:rgba(10,10,10,.7); display:flex; align-items:center; justify-content:center; padding:4vw; opacity:0; pointer-events:none; transition:opacity .25s ease;}
+.text-modal{position:fixed; inset:0; z-index:400; background:rgba(0,0,0,.7); display:flex; align-items:center; justify-content:center; padding:4vw; opacity:0; pointer-events:none; transition:opacity .25s ease;}
 .text-modal.open{opacity:1; pointer-events:auto;}
 .text-modal-inner{background:#fff; color:#141414; width:100%; max-width:720px; max-height:82vh; border-radius:10px; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.35);}
 .text-modal-header{display:flex; align-items:center; justify-content:space-between; padding:1.4rem 1.6rem; border-bottom:1px solid var(--line); flex-shrink:0;}
@@ -303,7 +311,7 @@
 .text-modal-close{width:2rem; height:2rem; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; color:#141414; opacity:.6; transition:.2s;}
 .text-modal-close:hover{opacity:1; background:#F0EFEC;}
 .text-modal-body{padding:1.6rem; overflow-y:auto; font-size:.85rem; line-height:1.75; white-space:pre-wrap; word-break:keep-all;}
-footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
+footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
 .footer-top{display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; padding-bottom:2.5rem; border-bottom:1px solid rgba(255,255,255,.15);}
 @media(max-width:720px){.footer-top{grid-template-columns:1fr;}}
 .footer-logo img{width:290px; max-width:100%; height:auto; display:block; margin-bottom:.9rem;}
@@ -367,7 +375,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
   <!-- HERO -->
   <section class="hero">
     <div class="hero-media">
-      <video autoplay muted loop playsinline poster="images/hero-poster.jpg"
+      <video id="heroVideo" autoplay muted loop playsinline
   src="images/SANTA AHN.mp4"></video>
     </div>
     <div class="hero-scrim"></div>
@@ -379,8 +387,7 @@ footer{background:#0a0a0a; color:#fff; padding:3.5rem 0 2rem;}
 
 
       <div class="hero-intro">
-        <p>멀리필름(MULLI FILM)은 촬영과 AI를 함께 쓰는 서울의 광고·홍보영상 프로덕션입니다.</p>
-        <p>멀리필름(MULLI FILM)은 주식회사 아트콜라보의 광고·홍보영상 프로덕션입니다. 연출은 안원경 감독(SANTA AHN)이 맡습니다.</p>
+        <p>멀리필름(MULLI FILM)은 촬영과 AI를 함께 쓰는 서울의 광고·홍보영상 프로덕션입니다. 주식회사 아트콜라보가 운영하고, 연출은 안원경 감독(SANTA AHN)이 맡습니다.</p>
       </div>
 
       <a href="#work" class="hero-cta">Our Work →</a>
@@ -1241,6 +1248,27 @@ termsLink.addEventListener('click', (e) => { e.preventDefault(); openTermsModal(
 termsModalClose.addEventListener('click', closeTermsModal);
 termsModal.addEventListener('click', (e) => { if (e.target === termsModal) closeTermsModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && termsModal.classList.contains('open')) closeTermsModal(); });
+/* ---------- 첫 화면 영상 구간 제한 ----------
+   임시: 새 첫 화면 영상이 오면 삭제(위 #heroVideo CSS 두 줄과 함께).
+   SANTA AHN.mp4의 처음(~2.67초)과 끝(72.28초~)에 나오는 종전 로고 글자를 건너뛴다.
+   timeupdate는 최대 약 0.25초 간격이라 끝점에 0.3초 여유를 두었다. */
+const HERO_START = 3.0;   // 글자가 사라진 2.67초 + 0.3초
+const HERO_END   = 71.9;  // 글자가 나타나는 72.28초 − 0.3초
+(() => {
+  const v = document.getElementById('heroVideo');
+  if (!v) return;
+  const toStart = () => { try { v.currentTime = HERO_START; } catch (_) { /* 메타데이터 전이면 무시 */ } };
+  // 시작점으로 옮긴 뒤에만 보이게 한다. 이동이 안 되면 영상은 숨긴 채로 둔다(로고 노출 방지).
+  v.addEventListener('seeked', () => {
+    if (v.currentTime >= HERO_START - 0.05) v.classList.add('is-ready');
+  });
+  v.addEventListener('timeupdate', () => {
+    const t = v.currentTime;
+    if ((t >= HERO_END || t < HERO_START - 0.05) && !v.seeking) toStart();
+  });
+  if (v.readyState >= 1) toStart();
+  else v.addEventListener('loadedmetadata', toStart, { once: true });
+})();
 </script>
 
 </body>
