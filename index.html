@@ -386,6 +386,9 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
   .footer-legal{align-items:flex-start; text-align:left;}
 }
 .footer-row{display:flex; gap:.9rem; font-size:.82rem; color:rgba(255,255,255,.7); line-height:1.5;}
+/* 하위 페이지 연결 줄(css/site.css의 .footer-nav와 같은 값) */
+.footer-nav{display:flex; flex-wrap:wrap; gap:.5rem 1.4rem; margin-top:.8rem; font-size:.82rem; color:rgba(255,255,255,.7);}
+.footer-nav a:hover{color:#fff;}
 .footer-label{font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.4); flex-shrink:0; width:6.5rem;}
 .footer-bottom{position:relative; display:flex; flex-wrap:wrap; justify-content:flex-start; align-items:center; gap:1rem; padding-top:1.8rem; font-family:var(--font-mono); font-size:11px; letter-spacing:.05em;}
 @media(max-width:640px){
@@ -411,7 +414,8 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
     <a href="#top" class="logo"><img src="images/brand/mullifilm-wordmark-white.svg" alt="멀리필름 MULLI FILM" width="184" height="44"></a>
     <ul class="navlinks">
       <li><a href="#work"><span class="navnum"></span>작업</a></li>
-      <li><a href="#challenge"><span class="navnum"></span>제작 방식</a></li>
+      <li><a href="/services/"><span class="navnum"></span>서비스</a></li>
+      <li><a href="/about/"><span class="navnum"></span>소개</a></li>
       <li><a href="#contact"><span class="navnum"></span>문의</a></li>
     </ul>
     <button id="hamburger" class="hamburger" aria-label="메뉴 열기" aria-expanded="false">
@@ -427,8 +431,9 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
   </div>
   <ul class="mmf-list">
     <li><a href="#work"><span class="mmf-num">01</span>작업</a></li>
-    <li><a href="#challenge"><span class="mmf-num">02</span>제작 방식</a></li>
-    <li><a href="#contact"><span class="mmf-num">03</span>문의</a></li>
+    <li><a href="/services/"><span class="mmf-num">02</span>서비스</a></li>
+    <li><a href="/about/"><span class="mmf-num">03</span>소개</a></li>
+    <li><a href="#contact"><span class="mmf-num">04</span>문의</a></li>
   </ul>
 </div>
 
@@ -710,6 +715,7 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
       <div class="footer-brand">
         <div class="footer-logo"><img src="images/brand/mullifilm-wordmark-white.svg" alt="멀리필름 MULLI FILM" width="290" height="70"></div>
         <p class="footer-desc"><span style="font-family:Arial, sans-serif;">MAKE VISION REAL</span><br>광고 영상과 브랜드 필름을 제작합니다.</p>
+        <div class="footer-nav"><a href="/services/">서비스</a><a href="/about/">회사 소개</a></div>
 
         <!-- 확인 대기: 회사 인스타그램 계정 주소. 확인되면 href 끝에 계정 이름을 넣고 주석을 푼다.
         <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="footer-sns" aria-label="Instagram">
@@ -1310,6 +1316,18 @@ termsLink.addEventListener('click', (e) => { e.preventDefault(); openTermsModal(
 termsModalClose.addEventListener('click', closeTermsModal);
 termsModal.addEventListener('click', (e) => { if (e.target === termsModal) closeTermsModal(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && termsModal.classList.contains('open')) closeTermsModal(); });
+
+/* ---------- 주소의 #terms, #privacy로 약관 창 열기 ----------
+   하위 페이지 하단의 /#terms, /#privacy 연결이 여기로 온다. 연 뒤에는 주소에서 # 부분을 지워
+   창을 닫고 새로 고쳐도 다시 열리지 않게 한다. */
+function openLegalFromHash(){
+  const open = { '#terms': openTermsModal, '#privacy': openPrivacyModal }[location.hash];
+  if (!open) return;
+  open();
+  history.replaceState(history.state, '', location.pathname + location.search);
+}
+window.addEventListener('hashchange', openLegalFromHash);
+openLegalFromHash();
 /* ---------- 첫 화면 영상 구간 제한 ----------
    임시: 새 첫 화면 영상이 오면 삭제(위 #heroVideo CSS 두 줄과 함께).
    SANTA AHN.mp4의 처음(~2.67초)과 끝(72.28초~)에 나오는 종전 로고 글자를 건너뛴다.
