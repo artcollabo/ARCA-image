@@ -156,9 +156,6 @@
 
 
   .hero-media video, .hero-media img{width:100%; height:100%; object-fit:cover; opacity:.72;}
-  /* 임시: 새 첫 화면 영상이 오면 삭제. 시작점으로 옮기기 전에는 영상을 숨긴다 */
-  .hero-media video#heroVideo{opacity:0; transition:opacity .4s ease;}
-  .hero-media video#heroVideo.is-ready{opacity:.72;}
     /* 히어로페이지 블랙커버
   .hero-scrim{position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,.92) 100%);}
   */
@@ -442,8 +439,8 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
   <!-- HERO -->
   <section class="hero">
     <div class="hero-media">
-      <video id="heroVideo" autoplay muted loop playsinline
-  src="images/SANTA AHN.mp4"></video>
+      <video id="heroVideo" autoplay muted loop playsinline poster="images/brand/mullifilm-hero-poster.jpg"
+  src="videos/hero/mullifilm-hero.mp4"></video>
     </div>
     <div class="hero-scrim"></div>
     <div class="hero-body reveal">
@@ -1328,27 +1325,6 @@ function openLegalFromHash(){
 }
 window.addEventListener('hashchange', openLegalFromHash);
 openLegalFromHash();
-/* ---------- 첫 화면 영상 구간 제한 ----------
-   임시: 새 첫 화면 영상이 오면 삭제(위 #heroVideo CSS 두 줄과 함께).
-   SANTA AHN.mp4의 처음(~2.67초)과 끝(72.28초~)에 나오는 종전 로고 글자를 건너뛴다.
-   timeupdate는 최대 약 0.25초 간격이라 끝점에 0.3초 여유를 두었다. */
-const HERO_START = 3.0;   // 글자가 사라진 2.67초 + 0.3초
-const HERO_END   = 71.9;  // 글자가 나타나는 72.28초 − 0.3초
-(() => {
-  const v = document.getElementById('heroVideo');
-  if (!v) return;
-  const toStart = () => { try { v.currentTime = HERO_START; } catch (_) { /* 메타데이터 전이면 무시 */ } };
-  // 시작점으로 옮긴 뒤에만 보이게 한다. 이동이 안 되면 영상은 숨긴 채로 둔다(로고 노출 방지).
-  v.addEventListener('seeked', () => {
-    if (v.currentTime >= HERO_START - 0.05) v.classList.add('is-ready');
-  });
-  v.addEventListener('timeupdate', () => {
-    const t = v.currentTime;
-    if ((t >= HERO_END || t < HERO_START - 0.05) && !v.seeking) toStart();
-  });
-  if (v.readyState >= 1) toStart();
-  else v.addEventListener('loadedmetadata', toStart, { once: true });
-})();
 </script>
 
 </body>
