@@ -1,0 +1,114 @@
+{
+  "redirects": [
+    {
+      "source": "/([Aa]bout/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/director/",
+      "statusCode": 301
+    },
+    {
+      "source": "/([Aa]bout/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/director/",
+      "statusCode": 301
+    },
+    {
+      "source": "/((?:[Ww]ork|[Pp]roject|[Pp]roduct|[Ss]hort[Ff]orm|SHORTFORM)/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/work/",
+      "statusCode": 301
+    },
+    {
+      "source": "/((?:[Ww]ork|[Pp]roject|[Pp]roduct|[Ss]hort[Ff]orm|SHORTFORM)/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/work/",
+      "statusCode": 301
+    },
+    {
+      "source": "/((?:[Pp]ublic[Ss]ector|PUBLICSECTOR)/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/services/public/",
+      "statusCode": 301
+    },
+    {
+      "source": "/((?:[Pp]ublic[Ss]ector|PUBLICSECTOR)/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/services/public/",
+      "statusCode": 301
+    },
+    {
+      "source": "/([Aa][Ii]/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/services/ai/",
+      "statusCode": 301
+    },
+    {
+      "source": "/([Aa][Ii]/?)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/services/ai/",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/director/",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.santaahn.com"
+        }
+      ],
+      "destination": "https://mullifilm.com/director/",
+      "statusCode": 301
+    }
+  ]
+}
