@@ -1,4 +1,4 @@
-/* 멀리필름 하위 페이지 공통 스타일. index.html의 머리·하단 값과 같게 유지한다. */
+/* 멀리필름 하위 페이지 공통 스타일. index.html의 머리와 하단 값과 같게 유지한다. */
 :root{--ink:#000000;--ink-2:#141414;--ink-3:#1C1C1C;--bone:#FFFFFF;--line:rgba(255,255,255,0.14);
   --font-base:'Noto Sans KR','Arial',sans-serif;--font-mono:'Noto Sans KR','Arial',monospace;--font-latin:'Arial','Noto Sans KR',sans-serif;}
 *{box-sizing:border-box;margin:0;padding:0;}
