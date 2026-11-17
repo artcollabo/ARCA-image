@@ -308,6 +308,10 @@
   .c-text{word-break:keep-all; overflow-wrap:break-word;}
   .c-text h3{font-weight:700; letter-spacing:-.02em; font-size:clamp(1.4rem,2.5vw,1.9rem); line-height:1.3; color:var(--bone); margin-bottom:1rem;}
   .c-text p{font-size:1rem; line-height:1.8; opacity:.75; max-width:34rem;}
+  /* 문단 다듬기: 넓은 화면은 양쪽 정렬, 좁은 화면은 왼쪽 정렬(keep-all과 함께 쓰면 단어 사이가 벌어짐). 마지막 줄에 한 단어만 남지 않게 */
+  .c-text h3{text-wrap:balance;}
+  .hero-intro p, .c-text p{text-wrap:pretty;}
+  @media(min-width:821px){.hero-intro p, .c-text p{text-align:justify;}}
 .c-playbtn{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:2; background:none;}
 .c-playbtn span{width:56px; height:56px; border-radius:50%; background:rgba(0,0,0,.5); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; font-size:16px; color:#fff; padding-left:3px; transition:transform .2s ease, background .2s ease;}
 .c-playbtn:hover span{background:rgba(0,0,0,.7); transform:scale(1.05);}
@@ -351,7 +355,7 @@
   .field input, .field textarea{width:100%; font-family:inherit; font-size:.95rem; padding:.85rem 0; background:transparent; border:none; border-bottom:1px solid var(--line); outline:none; color:var(--bone);}
   .field input:focus, .field textarea:focus{border-color:var(--bone);}
   .field textarea{resize:none; min-height:70px;}
-  /* 유입 경로(체크박스): .field 의 글자 크기·밑줄을 그대로 따른다 */
+  /* 유입 경로(체크박스): .field 의 글자 크기와 밑줄을 그대로 따른다 */
   .source-group{border:0; margin:0; padding:0 0 .85rem; min-width:0; border-bottom:1px solid var(--line);}
   .source-group legend{font-size:.8rem; opacity:.55; padding:0; margin-bottom:.5rem;}
   .source-options{display:flex; flex-wrap:wrap; gap:.7rem 1.6rem; padding-top:.35rem;}
@@ -683,7 +687,7 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
       <label><input type="checkbox" name="source" value="AI 서비스" id="sourceAi">AI 서비스(ChatGPT, Gemini, Claude, Perplexity 등)</label>
       <label><input type="checkbox" name="source" value="검색">검색(네이버, 구글)</label>
       <label><input type="checkbox" name="source" value="지인 소개">지인 소개</label>
-      <label><input type="checkbox" name="source" value="유튜브·SNS">유튜브·SNS</label>
+      <label><input type="checkbox" name="source" value="유튜브, SNS">유튜브, SNS</label>
       <label><input type="checkbox" name="source" value="기존 거래">기존 거래</label>
       <label><input type="checkbox" name="source" value="그 밖">그 밖</label>
     </div>
@@ -810,6 +814,7 @@ footer{background:var(--ink); color:#fff; padding:3.5rem 0 2rem;}
   </div>
 </div>
 
+<script src="/js/first-touch.js"></script>
 <script>
   const progress = document.getElementById('progress');
   const toTop = document.getElementById('toTop');
@@ -984,29 +989,11 @@ mobileMenuFull.querySelectorAll('a').forEach(a => {
     });
   });
 
-  // ---------- 유입 경로 기록 ----------
-  // 처음 들어온 경로·페이지·utm 값을 탭 세션 동안 한 번만 저장한다(이후 페이지 이동에도 첫 값 유지).
-  const ATTRIB_KEY = 'mf_first_touch';
-  const AI_HOSTS = ['chatgpt.com', 'chat.openai.com', 'perplexity.ai', 'gemini.google.com', 'claude.ai', 'copilot.microsoft.com'];
-  const AI_UTM_WORDS = ['chatgpt', 'openai', 'perplexity', 'gemini', 'claude', 'copilot'];
-
-  function readFirstTouch(){
-    const utmPairs = Array.from(new URLSearchParams(location.search))
-      .filter(([k]) => k.toLowerCase().startsWith('utm_'));
-    const current = {
-      referrer: document.referrer || '',
-      landing: location.href,
-      utm: utmPairs.map(([k, v]) => `${k}=${v}`).join('&'),
-      utmSource: (utmPairs.find(([k]) => k.toLowerCase() === 'utm_source') || [, ''])[1]
-    };
-    try {
-      const saved = sessionStorage.getItem(ATTRIB_KEY);
-      if (saved) return JSON.parse(saved);
-      sessionStorage.setItem(ATTRIB_KEY, JSON.stringify(current));
-    } catch (_) { /* 사생활 보호 모드 등 저장소를 못 쓰면 지금 값을 쓴다 */ }
-    return current;
-  }
-  const firstTouch = readFirstTouch();
+  // ---------- 유입 경로 판정 ----------
+  // 첫 방문 기록은 /js/first-touch.js(모든 페이지 공통)가 한다. 못 읽었으면 이 페이지 값으로 대신한다.
+  const AI_HOSTS = ['chatgpt.com', 'chat.openai.com', 'perplexity.ai', 'gemini.google.com', 'claude.ai', 'copilot.microsoft.com', 'wrtn.ai', 'grok.com', 'chat.deepseek.com', 'clova-x.naver.com'];
+  const AI_UTM_WORDS = ['chatgpt', 'openai', 'perplexity', 'gemini', 'claude', 'copilot', 'wrtn', 'grok', 'deepseek', 'clova'];
+  const firstTouch = window.mfFirstTouch || { referrer: document.referrer || '', landing: location.href, utm: '', utmSource: '' };
 
   function isAiSource(t){
     let host = '';

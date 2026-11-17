@@ -103,3 +103,12 @@ footer.site{background:var(--ink);color:#fff;padding:3.5rem 0 2rem;border-top:1p
 .footer-divider{opacity:.3;}
 .footer-copyright{color:rgba(255,255,255,.4);position:absolute;left:50%;transform:translateX(-50%);}
 @media(max-width:720px){.footer-top{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;align-items:center;text-align:center;gap:.6rem;}.footer-copyright{position:static;transform:none;}}
+
+/* 문단 다듬기
+   - 넓은 화면: 양쪽 정렬. 한 줄이 길어 단어 사이가 거의 벌어지지 않는다
+   - 좁은 화면: 단어 단위 줄바꿈(keep-all)과 양쪽 정렬을 함께 쓰면 단어 사이가 크게 벌어져 왼쪽 정렬을 유지한다
+   - 제목은 줄 길이를 고르게, 문단은 마지막 줄에 한 단어만 남지 않게(지원하지 않는 브라우저는 그대로) */
+.page-head h1,.block h2,.card b{text-wrap:balance;}
+.page-head .lead,.block-body p,dl.faq dd,ul.items span,ol.steps span{text-wrap:pretty;}
+@media(min-width:821px){.page-head .lead,.block-body p,dl.faq dd,ul.items span,ol.steps span{text-align:justify;}}
+[lang="en"] .page-head .lead,[lang="en"] .block-body p,[lang="en"] ul.items span{hyphens:auto;}
