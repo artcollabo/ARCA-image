@@ -47,6 +47,7 @@ main.page{padding:calc(84px + clamp(2rem,5vw,3.5rem)) 0 clamp(3.5rem,8vw,6rem);}
 .page-head .lead{margin-top:1.4rem;font-size:clamp(1.05rem,1.6vw,1.2rem);line-height:1.75;color:rgba(255,255,255,.86);word-break:keep-all;}
 .block{display:grid;grid-template-columns:minmax(0,18rem) minmax(0,1fr);gap:clamp(1.2rem,4vw,4rem);padding:clamp(2rem,4.5vw,3.2rem) 0;border-top:1px solid var(--line);}
 @media(max-width:820px){.block{grid-template-columns:1fr;gap:1rem;}}
+.block[id]{scroll-margin-top:6rem;}  /* 고정 머리 메뉴에 가리지 않게(메뉴에서 바로 가는 구역) */
 .block h2{font-weight:700;font-size:clamp(1.25rem,2.2vw,1.55rem);line-height:1.35;letter-spacing:-.01em;word-break:keep-all;}
 .block-body{max-width:46rem;}
 .block-body>*+*{margin-top:1.1rem;}
