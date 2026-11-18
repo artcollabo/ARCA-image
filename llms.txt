@@ -29,7 +29,7 @@
 - [작업](https://mullifilm.com/work/): 광고와 브랜드 필름 11편, 기관과 공공 14편, 기업과 기술 15편. 편마다 고객사, 영상 종류, 제작 방식
 - [회사 소개](https://mullifilm.com/about/): 하는 일, 만드는 방식, 감독, 이름, 회사 정보
 - [감독 소개](https://mullifilm.com/director/): 안원경 감독(SANTA AHN)의 경력과 연출작
-- [자주 묻는 질문](https://mullifilm.com/faq/): 멀리필름, SANTA AHN, ARCA IMAGE, 주식회사 아트콜라보의 관계, 제작 진행, 촬영과 AI
+- [자주 묻는 질문](https://mullifilm.com/faq/): 멀리필름, SANTA AHN, 주식회사 아트콜라보의 관계, 제작 진행, 촬영과 AI
 - [English](https://mullifilm.com/en/): MULLI FILM introduction in English
 - [Director SANTA AHN](https://mullifilm.com/en/director/): director profile in English
 - [안원경 감독(SANTA AHN) 소개](https://mullifilm.com/director/): 감독 소개. 예전 주소 santaahn.com은 이 페이지로 연결됩니다.
