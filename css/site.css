@@ -92,7 +92,7 @@ mark.todo::after{content:" ⓘ " attr(data-note);font-size:.75em;opacity:.8;}
 /* 하단 */
 footer.site{background:var(--ink);color:#fff;padding:3.5rem 0 2rem;border-top:1px solid var(--line);}
 .footer-top{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.15);}
-.footer-logo img{width:290px;max-width:100%;height:auto;display:block;margin-bottom:.9rem;}
+.footer-logo img{width:290px;max-width:100%;height:auto;display:block;margin-bottom:.9rem;transform:translateX(-6.25%);}/* SVG 안 왼쪽 여백(60/960)만큼 당겨 아래 글자와 맞춤 */
 .footer-desc{font-size:1.2rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:1.2rem;max-width:22rem;}
 .footer-legal{display:flex;flex-direction:column;gap:.6rem;align-items:flex-start;}
 .footer-row{display:flex;gap:.9rem;font-size:.82rem;color:rgba(255,255,255,.7);line-height:1.5;}
